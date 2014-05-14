@@ -8,6 +8,11 @@ package BLL;
 
 import BE.Alarm;
 import DAL.Alarm_Access;
+import datechooser.model.multiple.Period;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -16,11 +21,15 @@ import DAL.Alarm_Access;
 public class Alarm_AccessLink {
     Alarm_Access aa;
     
-    public Alarm_AccessLink() {
+    public Alarm_AccessLink() throws IOException {
         aa = new Alarm_Access();
     }
     
     public Alarm getAlarmByDate (int date) {
         return aa.getAlarmByDate(date);
+    }
+
+    public ArrayList<Alarm> getAlarmsByPeriodAndAccepted(Period p, Boolean approved) throws SQLException {
+        return aa.getAlarmsByPeriodAndAccepted(p,approved);
     }
 }

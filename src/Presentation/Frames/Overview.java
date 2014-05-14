@@ -3,23 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
+import BE.Alarm;
+import BLL.Alarm_AccessLink;
+import Presentation.Components.MyDateChooserCombo;
 import datechooser.beans.DateChooserDialog;
+import datechooser.model.multiple.MultyModelBehavior;
+import datechooser.model.multiple.Period;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Susanne
  */
 public class Overview extends javax.swing.JPanel {
-    
+
+    Alarm_AccessLink aal;
     ShowUpList SUL;
     TableModelAlarm alarmTableModel;
-    DateChooserDialog startDate, endDate;
+    MyDateChooserCombo dateChooser;
 
     /**
      * Creates new form Overview
@@ -29,7 +42,17 @@ public class Overview extends javax.swing.JPanel {
         this.setVisible(true);
         alarmTableModel = new TableModelAlarm();
         tblAlarm.setModel(alarmTableModel);
-        dateChooserCombo3.setCalendarPreferredSize(new Dimension(500, 500));
+        dateChooser = new MyDateChooserCombo();
+        dateChooser.setCalendarPreferredSize(new Dimension(500, 500));
+        dateChooser.setBehavior(MultyModelBehavior.SELECT_PERIOD);
+        jPanel3.add(dateChooser);
+        try {
+            aal = new Alarm_AccessLink();
+        } catch (IOException ex) {
+            Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        validate();
+        repaint();
         //dateChooserCombo3.set
     }
 
@@ -42,19 +65,32 @@ public class Overview extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        page2 = new javax.swing.JPanel();
         overview = new javax.swing.JPanel();
         alarmInfo = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         chbxApproved = new javax.swing.JCheckBox();
-        dateChooserCombo3 = new datechooser.beans.DateChooserCombo();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlarm = new javax.swing.JTable();
-        page2 = new javax.swing.JPanel();
 
-        jLabel2.setText("Fremmøde ved:");
+        setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("Dato");
+        page2.setLayout(new java.awt.BorderLayout());
+        add(page2, java.awt.BorderLayout.CENTER);
+
+        overview.setLayout(new java.awt.BorderLayout());
+
+        alarmInfo.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setText("Dato:");
+        jPanel3.add(jLabel1);
+
+        jPanel1.add(jPanel3);
 
         chbxApproved.setText("Vis godkendte");
         chbxApproved.addActionListener(new java.awt.event.ActionListener() {
@@ -62,36 +98,20 @@ public class Overview extends javax.swing.JPanel {
                 chbxApprovedActionPerformed(evt);
             }
         });
+        jPanel4.add(chbxApproved);
 
-        javax.swing.GroupLayout alarmInfoLayout = new javax.swing.GroupLayout(alarmInfo);
-        alarmInfo.setLayout(alarmInfoLayout);
-        alarmInfoLayout.setHorizontalGroup(
-            alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(alarmInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(alarmInfoLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(chbxApproved)
-                .addGap(14, 14, 14))
-        );
-        alarmInfoLayout.setVerticalGroup(
-            alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(alarmInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(chbxApproved))
-                    .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
+        jPanel1.add(jPanel4);
+
+        alarmInfo.add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jLabel2.setText("Fremmøde ved:");
+        jPanel2.add(jLabel2);
+
+        alarmInfo.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        overview.add(alarmInfo, java.awt.BorderLayout.NORTH);
 
         tblAlarm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,63 +126,9 @@ public class Overview extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblAlarm);
 
-        javax.swing.GroupLayout overviewLayout = new javax.swing.GroupLayout(overview);
-        overview.setLayout(overviewLayout);
-        overviewLayout.setHorizontalGroup(
-            overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(overviewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(overviewLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(overviewLayout.createSequentialGroup()
-                        .addComponent(alarmInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        overviewLayout.setVerticalGroup(
-            overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(overviewLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(alarmInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
-        );
+        overview.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout page2Layout = new javax.swing.GroupLayout(page2);
-        page2.setLayout(page2Layout);
-        page2Layout.setHorizontalGroup(
-            page2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-        );
-        page2Layout.setVerticalGroup(
-            page2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(395, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(page2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(page2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(overview, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void chbxApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxApprovedActionPerformed
@@ -173,9 +139,12 @@ public class Overview extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alarmInfo;
     private javax.swing.JCheckBox chbxApproved;
-    private datechooser.beans.DateChooserCombo dateChooserCombo3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel overview;
     private javax.swing.JPanel page2;
@@ -183,10 +152,17 @@ public class Overview extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void search() {
-//        String startDate = txtStartDate.getText();
-//        Timestamp endDate = txtEndDate.;
-//        Boolean approved = chbxApproved.isEnabled();
+        Boolean approved = chbxApproved.isSelected();
+        Iterable<Period> dates = dateChooser.getSelection();
+        ArrayList<Alarm> alarms = new ArrayList<>();
+        for (Period p : dates) {
+            try {
 
-    // skal søge i Databasen
+                alarms.addAll(aal.getAlarmsByPeriodAndAccepted(p, approved));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        alarmTableModel.setAlarms(alarms);
     }
 }
