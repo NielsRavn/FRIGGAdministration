@@ -6,17 +6,27 @@
 
 package Presentation.Frames;
 
-/**
+import java.awt.BorderLayout;
+/** 
  *
  * @author Niels
  */
 public class MainFrame extends javax.swing.JFrame {
+    
+    Overview ov;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        setLayout(new BorderLayout());
+        setSize(500,500);
+        setResizable(false);
+        
+        
+        ov = new Overview();
+        add(ov, BorderLayout.CENTER);
     }
 
     /**
