@@ -6,25 +6,32 @@
 
 package Presentation.Frames;
 
+import datechooser.beans.DateChooserDialog;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.sql.Timestamp;
 
 /**
  *
  * @author Susanne
  */
 public class Overview extends javax.swing.JPanel {
-
+    
     ShowUpList SUL;
+    TableModelAlarm alarmTableModel;
+    DateChooserDialog startDate, endDate;
+
     /**
      * Creates new form Overview
      */
     public Overview() {
         initComponents();
         this.setVisible(true);
-       
+        alarmTableModel = new TableModelAlarm();
+        tblAlarm.setModel(alarmTableModel);
+        dateChooserCombo3.setCalendarPreferredSize(new Dimension(500, 500));
+        //dateChooserCombo3.set
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,34 +43,23 @@ public class Overview extends javax.swing.JPanel {
     private void initComponents() {
 
         overview = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
         alarmInfo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         chbxApproved = new javax.swing.JCheckBox();
-        cbxAlarm = new javax.swing.JComboBox();
-        txtDate = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        dateChooserCombo3 = new datechooser.beans.DateChooserCombo();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAlarm = new javax.swing.JTable();
         page2 = new javax.swing.JPanel();
-
-        jLabel3.setText("Melding:");
-
-        jLabel4.setText("type");
-
-        jCheckBox2.setText("Øvelse");
 
         jLabel2.setText("Fremmøde ved:");
 
         jLabel1.setText("Dato");
 
         chbxApproved.setText("Vis godkendte");
-
-        txtDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDateFocusLost(evt);
+        chbxApproved.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbxApprovedActionPerformed(evt);
             }
         });
 
@@ -75,12 +71,11 @@ public class Overview extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbxAlarm, 0, 136, Short.MAX_VALUE)
-                    .addComponent(txtDate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                    .addGroup(alarmInfoLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(chbxApproved)
                 .addGap(14, 14, 14))
         );
@@ -88,20 +83,28 @@ public class Overview extends javax.swing.JPanel {
             alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(alarmInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(chbxApproved)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(chbxApproved))
+                    .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(alarmInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabel5.setText("Tid:");
-
-        jLabel6.setText("time");
+        tblAlarm.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblAlarm);
 
         javax.swing.GroupLayout overviewLayout = new javax.swing.GroupLayout(overview);
         overview.setLayout(overviewLayout);
@@ -109,19 +112,13 @@ public class Overview extends javax.swing.JPanel {
             overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(overviewLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(alarmInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(overviewLayout.createSequentialGroup()
-                .addGap(212, 212, 212)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(36, 36, 36)
                 .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(overviewLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4))
-                    .addComponent(jLabel3)
-                    .addComponent(jCheckBox2)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(overviewLayout.createSequentialGroup()
+                        .addComponent(alarmInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         overviewLayout.setVerticalGroup(
             overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,26 +126,19 @@ public class Overview extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(alarmInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(overviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(9, 9, 9)
-                .addComponent(jCheckBox2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout page2Layout = new javax.swing.GroupLayout(page2);
         page2.setLayout(page2Layout);
         page2Layout.setHorizontalGroup(
             page2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 498, Short.MAX_VALUE)
         );
         page2Layout.setVerticalGroup(
             page2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -156,52 +146,47 @@ public class Overview extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(395, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 55, Short.MAX_VALUE))
-                    .addComponent(page2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(page2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(overview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(page2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(page2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDateFocusLost
+    private void chbxApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbxApprovedActionPerformed
         search();
-    }//GEN-LAST:event_txtDateFocusLost
+    }//GEN-LAST:event_chbxApprovedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alarmInfo;
-    private javax.swing.JComboBox cbxAlarm;
     private javax.swing.JCheckBox chbxApproved;
-    private javax.swing.JCheckBox jCheckBox2;
+    private datechooser.beans.DateChooserCombo dateChooserCombo3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel overview;
     private javax.swing.JPanel page2;
-    private javax.swing.JTextField txtDate;
+    private javax.swing.JTable tblAlarm;
     // End of variables declaration//GEN-END:variables
 
     private void search() {
-    String date = txtDate.getText();
-    Boolean approved = chbxApproved.isEnabled();
-    
+//        String startDate = txtStartDate.getText();
+//        Timestamp endDate = txtEndDate.;
+//        Boolean approved = chbxApproved.isEnabled();
+
     // skal søge i Databasen
-    // skal sætte alarmer i Comboboxen
     }
 }
