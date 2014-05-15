@@ -74,4 +74,8 @@ public class TableModelAlarm extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    public Alarm getAlarmAt(int selectedRow) {
+        return alarmList.get(selectedRow);
+    }
+
 }

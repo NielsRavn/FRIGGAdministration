@@ -3,8 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
+
+import BE.Alarm;
+import BLL.Alarm_AccessLink;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -12,11 +23,20 @@ package Presentation.Frames;
  */
 public class ShowUpList extends javax.swing.JPanel {
 
+    Alarm_AccessLink aal;
+
     /**
      * Creates new form ShowUpList
      */
     public ShowUpList() {
+        try {
+            aal = new Alarm_AccessLink();
+        } catch (IOException ex) {
+            Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
+        this.setVisible(true);
+        
     }
 
     /**
@@ -28,13 +48,16 @@ public class ShowUpList extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblBil = new javax.swing.JLabel();
-        cbxCar = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblShowUpOnCar = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        lblBil = new javax.swing.JLabel();
+        cbxCar = new javax.swing.JComboBox();
+        jPanel2 = new javax.swing.JPanel();
+        btnApprove = new javax.swing.JButton();
 
-        lblBil.setText("Bil :");
+        setLayout(new java.awt.BorderLayout());
 
         tblShowUpOnCar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,48 +72,58 @@ public class ShowUpList extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblShowUpOnCar);
 
-        jButton1.setText("Godkend");
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(lblBil)
-                .addGap(66, 66, 66)
-                .addComponent(cbxCar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBil)
-                    .addComponent(cbxCar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        lblBil.setText("Bil :");
+        jPanel1.add(lblBil);
+
+        cbxCar.setPreferredSize(new java.awt.Dimension(150, 20));
+        jPanel1.add(cbxCar);
+
+        jPanel3.add(jPanel1, java.awt.BorderLayout.WEST);
+
+        add(jPanel3, java.awt.BorderLayout.PAGE_START);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        btnApprove.setText("Godkend");
+        jPanel2.add(btnApprove, java.awt.BorderLayout.EAST);
+
+        add(jPanel2, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApprove;
     private javax.swing.JComboBox cbxCar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBil;
     private javax.swing.JTable tblShowUpOnCar;
     // End of variables declaration//GEN-END:variables
+
+    void SelectionChanged(Alarm alarm) throws SQLException {
+        cbxCar.removeAllItems();
+        ArrayList<Integer> cars = new ArrayList<>();
+        int alarmID = alarm.getID();
+        System.out.println("im running");
+        cars.addAll(aal.getCarNrByAlarmID(alarmID));
+        for(Integer i: cars){
+            cbxCar.addItem(i);
+        }
+    }
+    
+    private class myComboBoxSelectionListener implements ListSelectionListener{
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+        int selectedCar = cbxCar.getSelectedIndex();
+        
+        }
+        
+    }
 }

@@ -22,6 +22,9 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -30,7 +33,7 @@ import java.util.logging.Logger;
 public class Overview extends javax.swing.JPanel {
 
     Alarm_AccessLink aal;
-    ShowUpList SUL;
+    ShowUpList sul;
     TableModelAlarm alarmTableModel;
     MyDateChooserCombo dateChooser;
 
@@ -42,6 +45,7 @@ public class Overview extends javax.swing.JPanel {
         this.setVisible(true);
         alarmTableModel = new TableModelAlarm();
         tblAlarm.setModel(alarmTableModel);
+        sul= new ShowUpList();
         dateChooser = new MyDateChooserCombo();
         dateChooser.setCalendarPreferredSize(new Dimension(500, 500));
         dateChooser.setBehavior(MultyModelBehavior.SELECT_PERIOD);
@@ -51,9 +55,12 @@ public class Overview extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
+        page2.add(sul, BorderLayout.CENTER);
+        ListSelectionModel lsm = tblAlarm.getSelectionModel();
+        lsm.addListSelectionListener(new myTableSelectionListener());
         validate();
         repaint();
-        //dateChooserCombo3.set
+        
     }
 
     /**
@@ -113,6 +120,8 @@ public class Overview extends javax.swing.JPanel {
 
         overview.add(alarmInfo, java.awt.BorderLayout.NORTH);
 
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 100));
+
         tblAlarm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -164,5 +173,19 @@ public class Overview extends javax.swing.JPanel {
             }
         }
         alarmTableModel.setAlarms(alarms);
+    }
+    
+    private class myTableSelectionListener implements ListSelectionListener{
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            int selectedRow = tblAlarm.getSelectedRow();
+            try {
+                sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));
+            } catch (SQLException ex) {
+                Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 }

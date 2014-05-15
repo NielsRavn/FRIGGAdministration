@@ -32,4 +32,8 @@ public class Alarm_AccessLink {
     public ArrayList<Alarm> getAlarmsByPeriodAndAccepted(Period p, Boolean approved) throws SQLException {
         return aa.getAlarmsByPeriodAndAccepted(p,approved);
     }
+    
+    public ArrayList<Integer> getCarNrByAlarmID (int ID) throws SQLException {
+        return aa.getCarNrByAlarmID (ID);
+    }
 }
