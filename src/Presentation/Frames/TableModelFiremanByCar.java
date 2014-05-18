@@ -6,27 +6,47 @@
 
 package Presentation.Frames;
 
+import BE.TimeSheet;
+import java.util.ArrayList;
+import java.sql.Timestamp;
 import javax.swing.table.AbstractTableModel;
+
 
 /**
  *
  * @author Susanne
  */
 public class TableModelFiremanByCar extends AbstractTableModel{
+    ArrayList<TimeSheet> carList;
+    String[] colNames = {"Medarb.Nr", "Fornavn", "Efternavn", "Starttid", "Sluttid", "Position"};
+    Class[] classes = {Integer.class, String.class, String.class, Timestamp.class, Timestamp.class, String.class};
 
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return carList.size();
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        return colNames.length;    }
 
-    @Override
+  @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        switch (columnIndex) {
+            case 0:
+                return carList.get(rowIndex).getEmployeeID();
+            case 1:
+                return carList.get(rowIndex).getFirstName();
+            case 2:
+                return carList.get(rowIndex).getLastName();
+            case 3:
+                return carList.get(rowIndex).getStartTime();
+            case 4:
+                return carList.get(rowIndex).getEndTime();
+            case 5:
+                return carList.get(rowIndex).getPosition();
+        }
+        return null;
+  }
     
 }
