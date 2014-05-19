@@ -47,7 +47,7 @@ public class Overview extends javax.swing.JPanel {
         this.setVisible(true);
         alarmTableModel = new TableModelAlarm();
         tblAlarm.setModel(alarmTableModel);
-        sul= new ShowUpList();
+        sul = new ShowUpList();
         dateChooser = new MyDateChooserCombo();
         dateChooser.setCalendarPreferredSize(new Dimension(500, 500));
         dateChooser.setBehavior(MultyModelBehavior.SELECT_PERIOD);
@@ -66,9 +66,11 @@ public class Overview extends javax.swing.JPanel {
         page2.add(sul, BorderLayout.CENTER);
         ListSelectionModel lsm = tblAlarm.getSelectionModel();
         lsm.addListSelectionListener(new myTableSelectionListener());
+        search();
         validate();
+
         repaint();
-        
+
     }
 
     /**
@@ -181,19 +183,23 @@ public class Overview extends javax.swing.JPanel {
             }
         }
         alarmTableModel.setAlarms(alarms);
+        tblAlarm.getSelectionModel().setSelectionInterval(0, 0);
     }
-    
-    private class myTableSelectionListener implements ListSelectionListener{
+
+    private class myTableSelectionListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int selectedRow = tblAlarm.getSelectedRow();
-            try {
-                sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));
-            } catch (SQLException ex) {
-                Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Her");
+            if (selectedRow != -1) {
+                try {
+                    sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));
+                } catch (SQLException ex) {
+                    Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
-        
+
     }
 }
