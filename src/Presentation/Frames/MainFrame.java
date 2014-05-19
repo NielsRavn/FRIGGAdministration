@@ -21,7 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         setLayout(new BorderLayout());
-        setSize(500,500);
+        setSize(700,600);
         setResizable(false);
         
         

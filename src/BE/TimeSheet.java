@@ -6,34 +6,57 @@
 
 package BE;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Susanne
  */
 public class TimeSheet {
+    private String position;
+    private int approvedByTeamleader;
+    private int hours;
+    private Timestamp endTime;
+    private Timestamp startTime;
+    private String lastName;
+    private String firstName;
+    private int ID;
 
-    public Object getEmployeeID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public TimeSheet(int firemanID, String firstName, String lastName, Timestamp startTime, Timestamp endTime, int hours, int approvedByTeamleader, String position) {
+        this.ID = firemanID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.hours = hours;
+        this.approvedByTeamleader = approvedByTeamleader;
+        this.position = position;
     }
 
-    public Object getFirstName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getEmployeeID() {
+        return ID;    }
+
+    public String getFirstName() {
+        return firstName;    }
+
+    public String getLastName() {
+        return lastName;    }
+
+    public Timestamp getStartTime() {
+        return startTime;    }
+
+    public Timestamp getEndTime() {
+        return endTime;    }
+    
+    public int getApprovedByTeamleader() {
+        return approvedByTeamleader;
+    }
+    
+    public int getHours() {
+        return hours;
     }
 
-    public Object getLastName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Object getStartTime() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Object getEndTime() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Object getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public String getPosition() {
+        return position;    }
     
 }

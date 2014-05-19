@@ -6,7 +6,11 @@
 package Presentation.Frames;
 
 import BE.Alarm;
+import BE.TimeSheet;
 import BLL.Alarm_AccessLink;
+import BLL.TimeSheet_AccessLink;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,19 +28,25 @@ import javax.swing.event.ListSelectionListener;
 public class ShowUpList extends javax.swing.JPanel {
 
     Alarm_AccessLink aal;
-
+    TimeSheet_AccessLink tsal;
+    TableModelFiremanByCar tableFiremanByCar;
+    int alarmID;
+    final String stationsVagt = "Stationsvagt";
     /**
      * Creates new form ShowUpList
      */
     public ShowUpList() {
         try {
             aal = new Alarm_AccessLink();
+            tsal = new TimeSheet_AccessLink();
         } catch (IOException ex) {
             Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
         this.setVisible(true);
-        
+        cbxCar.addActionListener(new myComboBoxSelectionListener());
+        tableFiremanByCar = new TableModelFiremanByCar();
+        tblShowUpOnCar.setModel(tableFiremanByCar);
     }
 
     /**
@@ -109,21 +119,38 @@ public class ShowUpList extends javax.swing.JPanel {
     void SelectionChanged(Alarm alarm) throws SQLException {
         cbxCar.removeAllItems();
         ArrayList<Integer> cars = new ArrayList<>();
-        int alarmID = alarm.getID();
-        System.out.println("im running");
+        alarmID = alarm.getID();
         cars.addAll(aal.getCarNrByAlarmID(alarmID));
-        for(Integer i: cars){
+        for (Integer i : cars) {
+            if(i == 0)
+                cbxCar.addItem(stationsVagt);
+            else
             cbxCar.addItem(i);
         }
     }
-    
-    private class myComboBoxSelectionListener implements ListSelectionListener{
 
+    private class myComboBoxSelectionListener implements ActionListener {
+        ArrayList <TimeSheet> employees = new ArrayList<>();
         @Override
-        public void valueChanged(ListSelectionEvent e) {
-        int selectedCar = cbxCar.getSelectedIndex();
-        
+        public void actionPerformed(ActionEvent e) {
+            int selectedCar = cbxCar.getSelectedIndex();
+            if(cbxCar.getSelectedItem() != null && !cbxCar.getSelectedItem().equals(stationsVagt)){
+                try {
+                    employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, ((int)cbxCar.getSelectedItem()) );
+                } catch (SQLException ex) {
+                    Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else if(cbxCar.getSelectedItem() != null){
+                try {
+                    employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, 0 );
+                } catch (SQLException ex) {
+                    Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            tableFiremanByCar.setTimeSheets(employees);
+            
         }
-        
+
     }
+
 }

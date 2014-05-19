@@ -24,7 +24,6 @@ public class TableModelAlarm extends AbstractTableModel {
     public TableModelAlarm() {
         this(new ArrayList<Alarm>());
     }
-
     @Override
     public int getRowCount() {
         return alarmList.size();

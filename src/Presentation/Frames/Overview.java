@@ -9,6 +9,8 @@ import BE.Alarm;
 import BLL.Alarm_AccessLink;
 import Presentation.Components.MyDateChooserCombo;
 import datechooser.beans.DateChooserDialog;
+import datechooser.events.SelectionChangedEvent;
+import datechooser.events.SelectionChangedListener;
 import datechooser.model.multiple.MultyModelBehavior;
 import datechooser.model.multiple.Period;
 import java.awt.BorderLayout;
@@ -49,6 +51,12 @@ public class Overview extends javax.swing.JPanel {
         dateChooser = new MyDateChooserCombo();
         dateChooser.setCalendarPreferredSize(new Dimension(500, 500));
         dateChooser.setBehavior(MultyModelBehavior.SELECT_PERIOD);
+        dateChooser.addSelectionChangedListener(new SelectionChangedListener() {
+            @Override
+            public void onSelectionChange(SelectionChangedEvent sce) {
+                search();
+            }
+        });
         jPanel3.add(dateChooser);
         try {
             aal = new Alarm_AccessLink();
