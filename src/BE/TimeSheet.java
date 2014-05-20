@@ -21,8 +21,10 @@ public class TimeSheet {
     private String lastName;
     private String firstName;
     private int ID;
+    private boolean approvedByCommander;
+    private int hoursApproved;
 
-    public TimeSheet(int firemanID, String firstName, String lastName, Timestamp startTime, Timestamp endTime, int hours, int approvedByTeamleader, String position) {
+    public TimeSheet(int firemanID, String firstName, String lastName, Timestamp startTime, Timestamp endTime, int hours, int approvedByTeamleader,int hoursApproved, boolean approvedByCoomander, String position) {
         this.ID = firemanID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +32,8 @@ public class TimeSheet {
         this.endTime = endTime;
         this.hours = hours;
         this.approvedByTeamleader = approvedByTeamleader;
+        this.hoursApproved = hoursApproved;
+        this.approvedByCommander = approvedByCoomander;
         this.position = position;
     }
 
@@ -52,11 +56,21 @@ public class TimeSheet {
         return approvedByTeamleader;
     }
     
+    public boolean getApprovedByCommander() {
+        return approvedByCommander;
+    }
+    
     public int getHours() {
         return hours;
+    }
+    
+    public int getHoursApproved() {
+        return hoursApproved;
     }
 
     public String getPosition() {
         return position;    }
+
+
     
 }

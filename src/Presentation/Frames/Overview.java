@@ -183,7 +183,6 @@ public class Overview extends javax.swing.JPanel {
             }
         }
         alarmTableModel.setAlarms(alarms);
-        tblAlarm.getSelectionModel().setSelectionInterval(0, 0);
     }
 
     private class myTableSelectionListener implements ListSelectionListener {
@@ -191,7 +190,6 @@ public class Overview extends javax.swing.JPanel {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int selectedRow = tblAlarm.getSelectedRow();
-            System.out.println("Her");
             if (selectedRow != -1) {
                 try {
                     sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));

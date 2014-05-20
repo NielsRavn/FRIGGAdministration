@@ -19,8 +19,8 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelFiremanByCar extends AbstractTableModel {
 
     ArrayList<TimeSheet> employees;
-    String[] colNames = {"Medarb.Nr", "Fornavn", "Efternavn", "Starttid", "Sluttid","Timer", "Godk.HL", "Position"};
-    Class[] classes = {Integer.class, String.class, String.class, String.class, String.class,Integer.class, Integer.class, String.class};
+    String[] colNames = {"Medarb.Nr", "Fornavn", "Efternavn", "Starttid", "Sluttid", "TimerHL", "Godk.HL", "TimerIL", "Godk.IL", "Position"};
+    Class[] classes = {Integer.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class, String.class};
 
     public TableModelFiremanByCar(ArrayList<TimeSheet> timeSheet) {
         this.employees = timeSheet;
@@ -61,9 +61,14 @@ public class TableModelFiremanByCar extends AbstractTableModel {
             case 5:
                 return employees.get(rowIndex).getHours();
             case 6:
-                return employees.get(rowIndex).getApprovedByTeamleader();
+                return employees.get(rowIndex).getHoursApproved();
             case 7:
+                return employees.get(rowIndex).getApprovedByTeamleader();
+            case 8:
+                return employees.get(rowIndex).getApprovedByCommander();
+            case 9:
                 return employees.get(rowIndex).getPosition();
+
         }
         return null;
     }

@@ -133,18 +133,15 @@ public class ShowUpList extends javax.swing.JPanel {
         ArrayList <TimeSheet> employees = new ArrayList<>();
         @Override
         public void actionPerformed(ActionEvent e) {
-            int selectedCar = cbxCar.getSelectedIndex();
             if(cbxCar.getSelectedItem() != null && !cbxCar.getSelectedItem().equals(stationsVagt)){
                 try {
                     employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, ((int)cbxCar.getSelectedItem()) );
-                } catch (SQLException ex) {
-                    Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } catch (SQLException ex) {}
             }else if(cbxCar.getSelectedItem() != null){
                 try {
                     employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, 0 );
                 } catch (SQLException ex) {
-                    Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
             }
             tableFiremanByCar.setTimeSheets(employees);
