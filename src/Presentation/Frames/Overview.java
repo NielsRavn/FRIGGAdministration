@@ -172,9 +172,11 @@ public class Overview extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void search() {
+        
         Boolean approved = chbxApproved.isSelected();
         Iterable<Period> dates = dateChooser.getSelection();
         ArrayList<Alarm> alarms = new ArrayList<>();
+        sul.clearTimeSheet();
         for (Period p : dates) {
             try {
 
@@ -194,6 +196,7 @@ public class Overview extends javax.swing.JPanel {
             if (selectedRow != -1) {
                 try {
                     sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
                 }

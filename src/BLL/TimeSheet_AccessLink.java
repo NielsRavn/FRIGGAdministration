@@ -27,4 +27,9 @@ public class TimeSheet_AccessLink {
     public ArrayList<TimeSheet> getTimeSheetByCarNrAndAlarmID(int alarmID, int carNr) throws SQLException {
         return tsa.getTimeSheetByCarNrAndAlarmID(alarmID, carNr);
     }
+
+    public void updateTimesheet(TimeSheet t) throws SQLException {
+        tsa.updateTimesheet(t);    }
+
+
 }

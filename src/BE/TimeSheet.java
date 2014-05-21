@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BE;
 
 import java.sql.Timestamp;
@@ -13,6 +12,7 @@ import java.sql.Timestamp;
  * @author Susanne
  */
 public class TimeSheet {
+
     private String position;
     private int approvedByTeamleader;
     private int hours;
@@ -23,8 +23,11 @@ public class TimeSheet {
     private int ID;
     private boolean approvedByCommander;
     private int hoursApproved;
+    private int timeSheetID;
+    private boolean change = false;
 
-    public TimeSheet(int firemanID, String firstName, String lastName, Timestamp startTime, Timestamp endTime, int hours, int approvedByTeamleader,int hoursApproved, boolean approvedByCoomander, String position) {
+    public TimeSheet(int timeSheetID, int firemanID, String firstName, String lastName, Timestamp startTime, Timestamp endTime, int hours, int approvedByTeamleader, int hoursApproved, boolean approvedByCoomander, String position) {
+        this.timeSheetID = timeSheetID;
         this.ID = firemanID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,38 +41,44 @@ public class TimeSheet {
     }
 
     public int getEmployeeID() {
-        return ID;    }
+        return ID;
+    }
 
     public String getFirstName() {
-        return firstName;    }
+        return firstName;
+    }
 
     public String getLastName() {
-        return lastName;    }
+        return lastName;
+    }
 
     public Timestamp getStartTime() {
-        return startTime;    }
+        return startTime;
+    }
 
     public Timestamp getEndTime() {
-        return endTime;    }
-    
+        return endTime;
+    }
+
     public int getApprovedByTeamleader() {
         return approvedByTeamleader;
     }
-    
+
     public boolean getApprovedByCommander() {
         return approvedByCommander;
     }
-    
+
     public int getHours() {
         return hours;
     }
-    
+
     public int getHoursApproved() {
         return hoursApproved;
     }
 
     public String getPosition() {
-        return position;    }
+        return position;
+    }
 
     public void setPosition(String position) {
         this.position = position;
@@ -111,6 +120,16 @@ public class TimeSheet {
         this.hoursApproved = hoursApproved;
     }
 
+    public boolean isChange() {
+        return change;
+    }
 
-    
+    public void setChange(boolean change) {
+        this.change = change;
+    }
+
+    public int getTimeSheetID() {
+        return timeSheetID;
+    }
+
 }

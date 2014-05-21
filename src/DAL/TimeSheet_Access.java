@@ -28,13 +28,13 @@ public class TimeSheet_Access extends DatabaseConnection {
         ArrayList<TimeSheet> result = new ArrayList<>();
         Connection con = null;
         ResultSet rs = null;
-
-        con = getConnection();
-        Statement stmnt = con.createStatement();
         try {
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+
             if (carNr != 0) {
-               
-                rs = stmnt.executeQuery("select empoyeeId, firstname, lastName, startTime, endTime,tml.hours as tmlHours, sal.hours as salHours, tml.firemanId, sal.approved, name\n"
+
+                rs = stmnt.executeQuery("select TimeSheet.Id, empoyeeId, firstname, lastName, startTime, endTime,tml.hours as tmlHours, sal.hours as salHours, tml.firemanId, sal.approved, name\n"
                         + "from TimeSheet\n"
                         + "inner join Position\n"
                         + "on TimeSheet.positionId = Position.id\n"
@@ -46,10 +46,9 @@ public class TimeSheet_Access extends DatabaseConnection {
                         + "on TimeSheet.acceptedForSalary = sal.id\n"
                         + "where alarmId = " + alarmID + " and carNr = " + carNr
                 );
-               
 
             } else {
-                rs = stmnt.executeQuery("select empoyeeId, firstname, lastName, startTime, endTime, tml.hours as tmlHours, sal.hours as salHours, tml.firemanId, sal.approved, name\n"
+                rs = stmnt.executeQuery("select TimeSheet.Id, empoyeeId, firstname, lastName, startTime, endTime, tml.hours as tmlHours, sal.hours as salHours, tml.firemanId, sal.approved, name\n"
                         + "from TimeSheet\n"
                         + "inner join Position\n"
                         + "on TimeSheet.positionId = Position.id\n"
@@ -63,6 +62,7 @@ public class TimeSheet_Access extends DatabaseConnection {
                 );
             }
             while (rs.next()) {
+                int timeSheetID = rs.getInt("Id");
                 int employeeID = rs.getInt("empoyeeId");
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastName");
@@ -73,17 +73,41 @@ public class TimeSheet_Access extends DatabaseConnection {
                 int hl = rs.getInt("firemanID");
                 boolean approved = rs.getBoolean("approved");
                 String position = rs.getString("name");
-                
-                if(salHours == 0) salHours = tmlHours;
-                
-                TimeSheet timeSheet = new TimeSheet(employeeID, firstName, lastName, startTime, endTime, tmlHours, hl, salHours, approved, position);
+
+                if (salHours == 0) {
+                    salHours = tmlHours;
+                }
+
+                TimeSheet timeSheet = new TimeSheet(timeSheetID, employeeID, firstName, lastName, startTime, endTime, tmlHours, hl, salHours, approved, position);
                 result.add(timeSheet);
             }
         } finally {
             if (con != null) {
                 con.close();
             }
-            return result;
+        }
+        return result;
+    }
+
+    public void updateTimesheet(TimeSheet t) throws SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+
+            int affectedRowsAP = stmnt.executeUpdate("insert into ApprovalSheet\n"
+                    + "values (null, null, '" + t.getApprovedByCommander() + "', " + t.getHoursApproved() + ")", Statement.RETURN_GENERATED_KEYS);
+            if (affectedRowsAP == 1) {
+                rs = stmnt.getGeneratedKeys();
+                rs.next();
+                int affectedRowsTS = stmnt.executeUpdate("update TimeSheet\n"
+                        + "set acceptedForSalary = " + rs.getInt(1) + "\n"
+                        + "where id = " + t.getTimeSheetID());
+            }
+        } finally {
+            if(con != null) con.close();
         }
     }
+
 }
