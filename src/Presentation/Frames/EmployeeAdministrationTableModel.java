@@ -18,7 +18,13 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
 
     ArrayList<Employee> employees;
     String[] colNames = {"First name", "Last name", "Chauffør", "TeamLeader"};
-    Class[] classes = {String.class, String.class, boolean.class, boolean.class};
+    Class[] classes = {String.class, String.class, Boolean.class, Boolean.class};
+    
+    public EmployeeAdministrationTableModel(){
+        employees = new ArrayList<>();
+        fireTableDataChanged();
+        
+    }
     
     @Override
     public int getRowCount() {
@@ -32,20 +38,43 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        
-        
-        
+        Employee e = employees.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                return e.getFirstName();
+            case 1:
+                return e.getLastName();
+            case 2: 
+                return e.isDriver();
+            case 3:
+                return e.isTeamLeader();
+        }
         return null;
     }
 
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        super.setValueAt(aValue, rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        Employee e = employees.get(rowIndex);
+        System.out.println("setting value");
+        switch (columnIndex){
+            case 0:
+                 e.setFirstName((String) value);
+                break;
+            case 1:
+                e.setLastName((String) value);
+                break;
+            case 2: 
+                e.setDriver((boolean) value);
+                break;
+            case 3:
+                e.setTeamLeader((boolean) value);
+                break;
+        }
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return super.isCellEditable(rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
@@ -58,6 +87,18 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
         return colNames[column];
     }
     
+    public void setEmployees(ArrayList<Employee> employees){
+        this.employees = employees;
+        fireTableDataChanged();
+    }
     
+    public ArrayList<Employee> getEmployees(){
+        return employees;
+    }
+    
+    public void clearList(){
+        employees = new ArrayList<>();
+        fireTableDataChanged();
+    }
     
 }

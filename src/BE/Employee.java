@@ -24,6 +24,14 @@ public class Employee {
         this.driver = driver;
     }
 
+    public Employee() {
+        emplyeeId = -1;
+        firstName = "";
+        lastName = "";
+        teamLeader = false;
+        driver = false;
+    }
+
     public int getEmplyeeId() {
         return emplyeeId;
     }
