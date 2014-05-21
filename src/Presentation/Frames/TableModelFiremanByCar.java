@@ -18,12 +18,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableModelFiremanByCar extends AbstractTableModel {
 
-    ArrayList<TimeSheet> employees;
+    ArrayList<TimeSheet> timeSheet;
     String[] colNames = {"Medarb.Nr", "Fornavn", "Efternavn", "Starttid", "Sluttid", "Position", "Timer", "Godk.HL", "Timer.IL", "Godk.IL"};
     Class[] classes = {Integer.class, String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class};
 
     public TableModelFiremanByCar(ArrayList<TimeSheet> timeSheet) {
-        this.employees = timeSheet;
+        this.timeSheet = timeSheet;
         fireTableDataChanged();
     }
 
@@ -33,7 +33,7 @@ public class TableModelFiremanByCar extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return employees.size();
+        return timeSheet.size();
     }
 
     @Override
@@ -45,29 +45,29 @@ public class TableModelFiremanByCar extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return employees.get(rowIndex).getEmployeeID();
+                return timeSheet.get(rowIndex).getEmployeeID();
             case 1:
-                return employees.get(rowIndex).getFirstName();
+                return timeSheet.get(rowIndex).getFirstName();
             case 2:
-                return employees.get(rowIndex).getLastName();
+                return timeSheet.get(rowIndex).getLastName();
             case 3:
                 Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(employees.get(rowIndex).getStartTime().getTime());
+                cal.setTimeInMillis(timeSheet.get(rowIndex).getStartTime().getTime());
                 return MyUtil.p0(cal.get(Calendar.HOUR_OF_DAY)) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
             case 4:
                 cal = Calendar.getInstance();
-                cal.setTimeInMillis(employees.get(rowIndex).getEndTime().getTime());
+                cal.setTimeInMillis(timeSheet.get(rowIndex).getEndTime().getTime());
                 return MyUtil.p0(cal.get(Calendar.HOUR_OF_DAY)) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
             case 5:
-                return employees.get(rowIndex).getPosition();
+                return timeSheet.get(rowIndex).getPosition();
             case 6:
-                return employees.get(rowIndex).getHours();
+                return timeSheet.get(rowIndex).getHours();
             case 7:
-                return employees.get(rowIndex).getApprovedByTeamleader();
+                return timeSheet.get(rowIndex).getApprovedByTeamleader();
             case 8:
-                return employees.get(rowIndex).getHoursApproved();
+                return timeSheet.get(rowIndex).getHoursApproved();
             case 9:
-                return employees.get(rowIndex).getApprovedByCommander();
+                return timeSheet.get(rowIndex).getApprovedByCommander();
 
         }
         return null;
@@ -84,7 +84,8 @@ public class TableModelFiremanByCar extends AbstractTableModel {
     }
 
     public void setTimeSheets(ArrayList<TimeSheet> TimeSheets) {
-        this.employees = TimeSheets;
+        
+        this.timeSheet = TimeSheets;
         fireTableDataChanged();
     }
 
@@ -97,21 +98,28 @@ public class TableModelFiremanByCar extends AbstractTableModel {
     }
 
     public void clearTimeSheet() {
-        employees = new ArrayList<>();
+        
+        timeSheet = new ArrayList<>();
         fireTableDataChanged();
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        TimeSheet t = timeSheet.get(rowIndex);
         switch (columnIndex) {
             case 8:
-                employees.get(rowIndex).setHoursApproved((int)aValue);
+                t.setHoursApproved((int)aValue);
+                t.setChange(true);
                 break;
             case 9:
-                employees.get(rowIndex).setApprovedByCommander((boolean)aValue);
+                t.setApprovedByCommander((boolean)aValue);
+                t.setChange(true);
                 break;
         }
 
     }
-
+    public ArrayList<TimeSheet> getTimeSheets() {
+        return timeSheet;
+        
+    }
 }

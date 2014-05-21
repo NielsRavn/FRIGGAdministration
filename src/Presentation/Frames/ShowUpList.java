@@ -32,6 +32,7 @@ public class ShowUpList extends javax.swing.JPanel {
     TableModelFiremanByCar tableFiremanByCar;
     int alarmID;
     final String stationsVagt = "Stationsvagt";
+
     /**
      * Creates new form ShowUpList
      */
@@ -99,11 +100,20 @@ public class ShowUpList extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        btnApprove.setText("Godkend");
+        btnApprove.setText("Gem");
+        btnApprove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApproveActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnApprove, java.awt.BorderLayout.EAST);
 
         add(jPanel2, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
+        saveChangedRows();
+    }//GEN-LAST:event_btnApproveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -118,38 +128,62 @@ public class ShowUpList extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     void SelectionChanged(Alarm alarm) throws SQLException {
-        tableFiremanByCar.clearTimeSheet();
-        cbxCar.removeAllItems();
+        clearTimeSheet();
+
         ArrayList<Integer> cars = new ArrayList<>();
         alarmID = alarm.getID();
         cars.addAll(aal.getCarNrByAlarmID(alarmID));
         for (Integer i : cars) {
-            if(i == 0)
+            if (i == 0) {
                 cbxCar.addItem(stationsVagt);
-            else
-            cbxCar.addItem(i);
+            } else {
+                cbxCar.addItem(i);
+            }
+        }
+    }
+
+    private void saveChangedRows() {
+        ArrayList<TimeSheet> changes = tableFiremanByCar.getTimeSheets();
+        for (TimeSheet t : changes) {
+            if (t.isChange()) {
+                try {
+                    tsal.updateTimesheet(t);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
     }
 
     private class myComboBoxSelectionListener implements ActionListener {
-        ArrayList <TimeSheet> employees = new ArrayList<>();
+
+        ArrayList<TimeSheet> employees;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(cbxCar.getSelectedItem() != null && !cbxCar.getSelectedItem().equals(stationsVagt)){
+            employees = new ArrayList<>();
+            if (cbxCar.getSelectedItem() != null && !cbxCar.getSelectedItem().equals(stationsVagt)) {
                 try {
-                    employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, ((int)cbxCar.getSelectedItem()) );
-                } catch (SQLException ex) {}
-            }else if(cbxCar.getSelectedItem() != null){
+                    employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, ((int) cbxCar.getSelectedItem()));
+                } catch (SQLException ex) {
+                }
+            } else if (cbxCar.getSelectedItem() != null) {
                 try {
-                    employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, 0 );
+                    employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, 0);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             }
             tableFiremanByCar.setTimeSheets(employees);
-            
+
         }
 
+    }
+
+    public void clearTimeSheet() {
+        tableFiremanByCar.clearTimeSheet();
+        cbxCar.removeAllItems();
+        
     }
 
 }
