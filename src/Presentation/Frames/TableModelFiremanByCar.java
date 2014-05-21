@@ -19,8 +19,8 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelFiremanByCar extends AbstractTableModel {
 
     ArrayList<TimeSheet> employees;
-    String[] colNames = {"Medarb.Nr", "Fornavn", "Efternavn", "Starttid", "Sluttid", "TimerHL", "Godk.HL", "TimerIL", "Godk.IL", "Position"};
-    Class[] classes = {Integer.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class, String.class};
+    String[] colNames = {"Medarb.Nr", "Fornavn", "Efternavn", "Starttid", "Sluttid", "Position", "Timer", "Godk.HL", "Timer.IL", "Godk.IL"};
+    Class[] classes = {Integer.class, String.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, Integer.class, Boolean.class};
 
     public TableModelFiremanByCar(ArrayList<TimeSheet> timeSheet) {
         this.employees = timeSheet;
@@ -53,21 +53,21 @@ public class TableModelFiremanByCar extends AbstractTableModel {
             case 3:
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(employees.get(rowIndex).getStartTime().getTime());
-                return cal.get(Calendar.HOUR_OF_DAY) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
+                return MyUtil.p0(cal.get(Calendar.HOUR_OF_DAY)) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
             case 4:
                 cal = Calendar.getInstance();
                 cal.setTimeInMillis(employees.get(rowIndex).getEndTime().getTime());
-                return cal.get(Calendar.HOUR_OF_DAY) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
+                return MyUtil.p0(cal.get(Calendar.HOUR_OF_DAY)) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
             case 5:
-                return employees.get(rowIndex).getHours();
+                return employees.get(rowIndex).getPosition();
             case 6:
-                return employees.get(rowIndex).getHoursApproved();
+                return employees.get(rowIndex).getHours();
             case 7:
                 return employees.get(rowIndex).getApprovedByTeamleader();
             case 8:
-                return employees.get(rowIndex).getApprovedByCommander();
+                return employees.get(rowIndex).getHoursApproved();
             case 9:
-                return employees.get(rowIndex).getPosition();
+                return employees.get(rowIndex).getApprovedByCommander();
 
         }
         return null;
@@ -90,7 +90,28 @@ public class TableModelFiremanByCar extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return super.isCellEditable(rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+        if (columnIndex == 8 || columnIndex == 9) {
+            return true;
+        }
+        return false;
+    }
+
+    public void clearTimeSheet() {
+        employees = new ArrayList<>();
+        fireTableDataChanged();
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        switch (columnIndex) {
+            case 8:
+                employees.get(rowIndex).setHoursApproved((int)aValue);
+                break;
+            case 9:
+                employees.get(rowIndex).setApprovedByCommander((boolean)aValue);
+                break;
+        }
+
     }
 
 }

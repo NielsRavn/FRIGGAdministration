@@ -65,6 +65,7 @@ public class Overview extends javax.swing.JPanel {
         }
         page2.add(sul, BorderLayout.CENTER);
         ListSelectionModel lsm = tblAlarm.getSelectionModel();
+        tblAlarm.getTableHeader().setReorderingAllowed(false);
         lsm.addListSelectionListener(new myTableSelectionListener());
         search();
         validate();

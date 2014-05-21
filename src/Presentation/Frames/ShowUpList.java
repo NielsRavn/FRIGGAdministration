@@ -47,6 +47,7 @@ public class ShowUpList extends javax.swing.JPanel {
         cbxCar.addActionListener(new myComboBoxSelectionListener());
         tableFiremanByCar = new TableModelFiremanByCar();
         tblShowUpOnCar.setModel(tableFiremanByCar);
+        tblShowUpOnCar.getTableHeader().setReorderingAllowed(false);
     }
 
     /**
@@ -117,6 +118,7 @@ public class ShowUpList extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     void SelectionChanged(Alarm alarm) throws SQLException {
+        tableFiremanByCar.clearTimeSheet();
         cbxCar.removeAllItems();
         ArrayList<Integer> cars = new ArrayList<>();
         alarmID = alarm.getID();

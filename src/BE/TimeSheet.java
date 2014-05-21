@@ -71,6 +71,46 @@ public class TimeSheet {
     public String getPosition() {
         return position;    }
 
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setApprovedByTeamleader(int approvedByTeamleader) {
+        this.approvedByTeamleader = approvedByTeamleader;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setApprovedByCommander(boolean approvedByCommander) {
+        this.approvedByCommander = approvedByCommander;
+    }
+
+    public void setHoursApproved(int hoursApproved) {
+        this.hoursApproved = hoursApproved;
+    }
+
 
     
 }

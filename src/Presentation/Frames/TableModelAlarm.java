@@ -6,15 +6,17 @@
 package Presentation.Frames;
 
 import BE.Alarm;
+import BLL.MyUtil;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.table.AbstractTableModel;
 
 public class TableModelAlarm extends AbstractTableModel {
 
     ArrayList<Alarm> alarmList;
     String[] colNames = {"Destination", "Tidspunkt", "Melding", "Godkendt", "OdinNr.", "Øvelse"};
-    Class[] classes = {String.class, Timestamp.class, String.class, Boolean.class, Integer.class, Boolean.class};
+    Class[] classes = {String.class, String.class, String.class, Boolean.class, Integer.class, Boolean.class};
 
     public TableModelAlarm(ArrayList<Alarm> alarmList) {
         this.alarmList = alarmList;
@@ -40,7 +42,10 @@ public class TableModelAlarm extends AbstractTableModel {
             case 0:
                 return alarmList.get(rowIndex).getDistination();
             case 1:
-                return alarmList.get(rowIndex).getTime();
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(alarmList.get(rowIndex).getTime().getTime());
+                return cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH)+1) + " " + MyUtil.p0(cal.get(Calendar.HOUR_OF_DAY)) + ":" + MyUtil.p0(cal.get(Calendar.MINUTE));
+                
             case 2:
                 return alarmList.get(rowIndex).getType();
             case 3:

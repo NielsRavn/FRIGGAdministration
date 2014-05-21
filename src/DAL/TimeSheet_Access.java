@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -62,7 +63,20 @@ public class TimeSheet_Access extends DatabaseConnection {
                 );
             }
             while (rs.next()) {
-                TimeSheet timeSheet = new TimeSheet(rs.getInt("empoyeeId"), rs.getString("firstname"), rs.getString("lastName"), rs.getTimestamp("startTime"), rs.getTimestamp("endTime"), rs.getInt("tmlHours"), rs.getInt("salHours"), rs.getInt("firemanID"), rs.getBoolean("approved"), rs.getString("name"));
+                int employeeID = rs.getInt("empoyeeId");
+                String firstName = rs.getString("firstname");
+                String lastName = rs.getString("lastName");
+                Timestamp startTime = rs.getTimestamp("startTime");
+                Timestamp endTime = rs.getTimestamp("endTime");
+                int tmlHours = rs.getInt("tmlHours");
+                int salHours = rs.getInt("salHours");
+                int hl = rs.getInt("firemanID");
+                boolean approved = rs.getBoolean("approved");
+                String position = rs.getString("name");
+                
+                if(salHours == 0) salHours = tmlHours;
+                
+                TimeSheet timeSheet = new TimeSheet(employeeID, firstName, lastName, startTime, endTime, tmlHours, hl, salHours, approved, position);
                 result.add(timeSheet);
             }
         } finally {
