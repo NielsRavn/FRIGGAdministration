@@ -6,6 +6,7 @@
 
 package Presentation.Frames;
 
+import Presentation.Components.TabView;
 import java.awt.BorderLayout;
 /** 
  *
@@ -14,6 +15,8 @@ import java.awt.BorderLayout;
 public class MainFrame extends javax.swing.JFrame {
     
     Overview ov;
+    TabView tv;
+    Header head;
 
     /**
      * Creates new form MainFrame
@@ -24,9 +27,14 @@ public class MainFrame extends javax.swing.JFrame {
         setSize(700,600);
         setResizable(false);
         
-        
+        tv = new TabView();
         ov = new Overview();
-        add(ov, BorderLayout.CENTER);
+        head = new Header();
+        
+        tv.addNewTab("Overblik", ov);
+        
+        add(head, BorderLayout.NORTH);
+        add(tv, BorderLayout.CENTER);
     }
 
     /**
