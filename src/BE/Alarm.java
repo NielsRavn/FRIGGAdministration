@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BE;
 
 import java.sql.Date;
@@ -14,6 +13,7 @@ import java.sql.Timestamp;
  * @author Susanne
  */
 public class Alarm {
+
     private int ID;
     private int odinNr;
     private String distination;
@@ -21,15 +21,16 @@ public class Alarm {
     private Timestamp time;
     private boolean accepted;
     private boolean exercise;
-    
-    public Alarm (int ID, int odinNr, String distination, String type, Timestamp time, boolean accepted, boolean exercise) {
-    this.ID = ID;
-    this.odinNr = odinNr;
-    this.distination = distination;
-    this.type = type;
-    this.time = time;
-    this.accepted = accepted;
-    this.exercise = exercise;
+    private boolean change = false;
+
+    public Alarm(int ID, int odinNr, String distination, String type, Timestamp time, boolean accepted, boolean exercise) {
+        this.ID = ID;
+        this.odinNr = odinNr;
+        this.distination = distination;
+        this.type = type;
+        this.time = time;
+        this.accepted = accepted;
+        this.exercise = exercise;
     }
 
     public Alarm(int odinNr, String destination, String type, Timestamp date) {
@@ -38,12 +39,12 @@ public class Alarm {
         this.type = type;
         this.time = date;
     }
+
     public Alarm(String destination, String type, Timestamp date) {
         this.distination = destination;
         this.type = type;
         this.time = date;
     }
-
 
     /**
      * @return the ID
@@ -128,13 +129,21 @@ public class Alarm {
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
-    
-    public String getName(){
-        return ""+ID;
+
+    public String getName() {
+        return "" + ID;
     }
-    
+
     public boolean isExercise() {
         return exercise;
     }
-    
+
+    public void setChange(boolean change) {
+        this.change = change;
+    }
+
+    public boolean isChange() {
+return change;
+    }
+
 }

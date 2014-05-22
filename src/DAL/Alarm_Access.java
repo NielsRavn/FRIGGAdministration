@@ -77,14 +77,30 @@ public class Alarm_Access extends DatabaseConnection {
                 Integer car = rs.getInt("carNr");
                 result.add(car);
             }
-            
-            
+
         } finally {
             if (con != null) {
                 con.close();
             }
         }
         return result;
+    }
+
+    public void updateAlarm(Alarm a) throws SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+
+            stmnt.executeUpdate("update Alarm\n"
+                    + "set accepted = '" + a.isAccepted() + "'\n"
+                    + "where id = " + a.getID());
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
     }
 
 }

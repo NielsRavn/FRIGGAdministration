@@ -101,9 +101,11 @@ public class TimeSheet_Access extends DatabaseConnection {
             if (affectedRowsAP == 1) {
                 rs = stmnt.getGeneratedKeys();
                 rs.next();
+                int approvalId = rs.getInt(1);
                 int affectedRowsTS = stmnt.executeUpdate("update TimeSheet\n"
-                        + "set acceptedForSalary = " + rs.getInt(1) + "\n"
+                        + "set acceptedForSalary = " + approvalId + "\n"
                         + "where id = " + t.getTimeSheetID());
+                System.out.println("affectedRowsTS = " + affectedRowsTS +" " + t.getTimeSheetID() + " " + approvalId);
             }
         } finally {
             if(con != null) con.close();
