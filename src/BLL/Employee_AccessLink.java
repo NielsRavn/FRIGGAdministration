@@ -31,5 +31,13 @@ public class Employee_AccessLink {
     public void createNewEmployee(Employee e) throws SQLException {
         ea.createNewEmployee(e);
     }
+
+    public void deleteEmployee(Employee e) throws SQLException {
+        ea.deleteEmployee(e);
+    }
+
+    public boolean checkNewEmployeeId(int id) throws SQLException {
+        return ea.checkNewEmployeeId(id);
+    }
     
 }

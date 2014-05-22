@@ -115,11 +115,13 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
         int id = Integer.parseInt(tfId.getText());
         employee = new Employee(id);
         try {
-            eal.createNewEmployee(employee);
-            dispose();
+            if(eal.checkNewEmployeeId(id)){
+                dispose();
+            }else{
+               JOptionPane.showMessageDialog(rootPane, "Id'et er allerede brugt"); 
+            } 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, "Id'et er allerede brugt");
         }
     }
 

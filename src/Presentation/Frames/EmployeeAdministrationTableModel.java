@@ -7,7 +7,13 @@
 package Presentation.Frames;
 
 import BE.Employee;
+import BLL.Commands.CommandStack;
+import BLL.Commands.EmployeeUpdateCommand;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -16,6 +22,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class EmployeeAdministrationTableModel extends AbstractTableModel{
 
+    CommandStack commandStack;
+    EmployeeAdministrationPanel parent;
     ArrayList<Employee> employees;
     String[] colNames = {"Login id","First name", "Last name", "Chauffør", "TeamLeader"};
     Class[] classes = {Integer.class, String.class, String.class, Boolean.class, Boolean.class};
@@ -24,6 +32,12 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
         employees = new ArrayList<>();
         fireTableDataChanged();
         
+    }
+
+    EmployeeAdministrationTableModel(EmployeeAdministrationPanel parent, CommandStack commandStack) {
+        this();
+        this.parent = parent;
+        this.commandStack = commandStack;
     }
     
     @Override
@@ -57,10 +71,8 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         Employee e = employees.get(rowIndex);
-        System.out.println("setting value");
+        Employee old = e.getCopyOfEmployee();
         switch (columnIndex){
-            case 0:
-                e.setEmplyeeId((int) value);
             case 1:
                  e.setFirstName((String) value);
                 break;
@@ -74,6 +86,14 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
                 e.setTeamLeader((boolean) value);
                 break;
         }
+        try {
+            commandStack.addCommandToStack(new EmployeeUpdateCommand(e, old));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        parent.search();
     }
 
     @Override
@@ -106,4 +126,8 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
         fireTableDataChanged();
     }
     
+    public void setEmployeeAtRow(Employee e, int row){
+        employees.set(row, e);
+        fireTableDataChanged();
+    }
 }

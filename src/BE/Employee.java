@@ -14,7 +14,7 @@ public class Employee {
     
     int emplyeeId;
     String firstName, lastName;
-    boolean teamLeader, driver, notInDatabse = false;
+    boolean teamLeader, driver;
 
     public Employee(int emplyeeId, String firstName, String lastName, boolean teamLeader, boolean driver) {
         this.emplyeeId = emplyeeId;
@@ -71,18 +71,9 @@ public class Employee {
     public void setDriver(boolean driver) {
         this.driver = driver;
     }
-
-    public boolean isNotInDatabse() {
-        return notInDatabse;
-    }
-
-    public void setNotInDatabse(boolean notInDatabse) {
-        this.notInDatabse = notInDatabse;
-    }
     
     public Employee getCopyOfEmployee(){
         Employee e = new Employee(emplyeeId, firstName, lastName, teamLeader, driver);
-        e.setNotInDatabse(notInDatabse);
         return e;
     }
     

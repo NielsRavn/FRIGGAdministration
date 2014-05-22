@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
 import BE.Employee;
+import BLL.Commands.CommandStack;
+import BLL.Commands.EmployeeCreateCommand;
 import BLL.Employee_AccessLink;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,28 +26,31 @@ import javax.swing.table.TableRowSorter;
  * @author Niels
  */
 public class EmployeeAdministrationPanel extends javax.swing.JPanel {
-    
+
+    CommandStack commandStack;
     Employee_AccessLink eal;
     EmployeeAdministrationTableModel eatm;
     RowSorter<EmployeeAdministrationTableModel> rowSorter;
     JFrame parent;
-    
+
     /**
      * Creates new form EmployeeAdministrationPanel
      */
     public EmployeeAdministrationPanel(JFrame parent) {
         this.parent = parent;
+        commandStack = new CommandStack();
         initComponents();
         try {
             eal = new Employee_AccessLink();
         } catch (IOException ex) {
         }
         tblEmployee.getTableHeader().setReorderingAllowed(false);
-        eatm = new EmployeeAdministrationTableModel();
+        eatm = new EmployeeAdministrationTableModel(this, commandStack);
         rowSorter = new TableRowSorter<EmployeeAdministrationTableModel>(eatm);
         tblEmployee.setModel(eatm);
         tblEmployee.setRowSorter(rowSorter);
         search();
+        addKeyListeners();
     }
 
     /**
@@ -168,32 +174,90 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 
-    private void search() {
+    public void search() {
         String query = tfSearch.getText();
         ArrayList<Employee> employees = new ArrayList<>();
         try {
-             employees = eal.getEmployeesBySearchQuery(query);
+            employees = eal.getEmployeesBySearchQuery(query);
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         eatm.setEmployees(employees);
+        setButtonsEnabled();
     }
 
     private void newEmployee() {
         NewEmployeeDialog ned = new NewEmployeeDialog(parent, true);
         ned.setVisible(true);
         Employee e = ned.getEmployee();
-        if(e != null){
+        try {
+            commandStack.addCommandToStack(new EmployeeCreateCommand(e));
+        } catch (SQLException | IOException ex) {
+        }
+        if (e != null) {
             eatm.getEmployees().add(e);
             eatm.fireTableDataChanged();
         }
+        setButtonsEnabled();
     }
 
     private void backwards() {
-        Stack<Employee> test = new Stack<>();
+        if (commandStack.canGoBackwards()) {
+            try {
+                commandStack.goBack();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            search();
+        }
+    }
+    
+    public void setButtonsEnabled(){
+            btnForward.setEnabled(commandStack.canGoForward());
+            btnBackwards.setEnabled(commandStack.canGoBackwards());        
     }
 
     private void forward() {
+        if (commandStack.canGoForward()) {
+            try {
+                commandStack.goForward();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            search();
+        }
+    }
+
+    private void addKeyListeners() {
+        MyUndoAndRedoKeyListener urk = new MyUndoAndRedoKeyListener();
+        addKeyListener(urk);
+        tblEmployee.addKeyListener(urk);
+        btnBackwards.addKeyListener(urk);
+        btnForward.addKeyListener(urk);
+        btnNewEmployee.addKeyListener(urk);
+        tfSearch.addKeyListener(urk);
+    }
+    
+    private class MyUndoAndRedoKeyListener extends KeyAdapter{
+        
+        boolean controlHold = false;
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_CONTROL)controlHold = false;
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_CONTROL) controlHold = true;
+            if(e.getKeyCode() == KeyEvent.VK_Z && controlHold){
+                backwards();
+            }
+            else if(e.getKeyCode() == KeyEvent.VK_Y && controlHold){
+                forward();
+            }
+        }
+        
+        
         
     }
 }

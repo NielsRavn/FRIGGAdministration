@@ -33,7 +33,7 @@ public class Employee_Access extends DatabaseConnection{
             Statement stmnt = con.createStatement();
             
             ResultSet rs = stmnt.executeQuery("SELECT * FROM Fireman "
-                    + "WHERE firstName LIKE '%" + query + "%' OR lastName LIKE '%" + query + "%'");
+                    + "WHERE firstName LIKE '%" + query + "%' OR lastName LIKE '%" + query + "%' OR employeeId LIKE '%" + query + "%'");
             
             while (rs.next()) {
                 int id = rs.getInt("employeeId");
@@ -97,6 +97,44 @@ public class Employee_Access extends DatabaseConnection{
             if (affectedRows <=0) {
                 throw new SQLException("Insert failed no affected rows");
             }
+            
+        }finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public void deleteEmployee(Employee e) throws SQLException {
+        Connection con = null;
+        
+        try{
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+            
+            int affectedRows = stmnt.executeUpdate("DELETE FROM Fireman WHERE employeeId = " + e.getEmplyeeId() + ";");
+            
+            if(affectedRows == 0){
+                throw new SQLException("employee was not deleted or was not in the database, no rows affected");
+            }
+            
+        }finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public boolean checkNewEmployeeId(int id) throws SQLException {
+        Connection con = null;
+        
+        try{
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+            
+            ResultSet rs = stmnt.executeQuery("SELECT employeeId FROM Fireman WHERE employeeId = " + id + ";");
+            
+            return !rs.next();
             
         }finally {
             if (con != null) {
