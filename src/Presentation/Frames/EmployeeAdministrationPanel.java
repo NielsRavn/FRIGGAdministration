@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.RowSorter;
 import javax.swing.table.TableRowSorter;
 
@@ -26,12 +27,13 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     Employee_AccessLink eal;
     EmployeeAdministrationTableModel eatm;
     RowSorter<EmployeeAdministrationTableModel> rowSorter;
-    
+    JFrame parent;
     
     /**
      * Creates new form EmployeeAdministrationPanel
      */
-    public EmployeeAdministrationPanel() {
+    public EmployeeAdministrationPanel(JFrame parent) {
+        this.parent = parent;
         initComponents();
         try {
             eal = new Employee_AccessLink();
@@ -178,9 +180,13 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     }
 
     private void newEmployee() {
-        Employee e = new Employee();
-        eatm.getEmployees().add(e);
-        eatm.fireTableDataChanged();
+        NewEmployeeDialog ned = new NewEmployeeDialog(parent, true);
+        ned.setVisible(true);
+        Employee e = ned.getEmployee();
+        if(e != null){
+            eatm.getEmployees().add(e);
+            eatm.fireTableDataChanged();
+        }
     }
 
     private void backwards() {

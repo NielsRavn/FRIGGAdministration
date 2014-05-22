@@ -27,5 +27,9 @@ public class Employee_AccessLink {
     public ArrayList<Employee> getEmployeesBySearchQuery(String query) throws SQLException {
         return ea.getEmployeesBySearchQuery(query); 
     }
+
+    public void createNewEmployee(Employee e) throws SQLException {
+        ea.createNewEmployee(e);
+    }
     
 }

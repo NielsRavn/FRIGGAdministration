@@ -54,4 +54,54 @@ public class Employee_Access extends DatabaseConnection{
         }
         return employees;
     }
+
+    public void updateEmployee(Employee e) throws SQLException {
+        Connection con = null;
+        
+        try{
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+
+            int affectedRows = stmnt.executeUpdate("UPDATE Fireman SET "
+                    + "firstName = '" + e.getFirstName() + "', "
+                    + "lastName = '" + e.getLastName()+ "', "
+                    + "teamleader = '" + e.isTeamLeader()+ "', "
+                    + "driver = '" + e.isDriver()+ "' "
+                    + "WHERE employeeId = " + e.getEmplyeeId() + "; ");
+            
+            if(affectedRows == 0){
+                throw new SQLException("Update failed no affected rows");
+            }
+            
+        }finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public void createNewEmployee(Employee e) throws SQLException {
+        Connection con = null;
+        
+        try{
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+            
+            int affectedRows = stmnt.executeUpdate("INSERT INTO Fireman VALUES ("
+                    + e.getEmplyeeId() + ", '"
+                    + e.getFirstName()+ "', '"
+                    + e.getLastName()+ "', '"
+                    + e.isTeamLeader()+ "', '"
+                    + e.isDriver()+ "');");
+            
+            if (affectedRows <=0) {
+                throw new SQLException("Insert failed no affected rows");
+            }
+            
+        }finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }

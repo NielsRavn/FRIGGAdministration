@@ -8,6 +8,7 @@ package Presentation.Frames;
 
 import Presentation.Components.TabView;
 import java.awt.BorderLayout;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,15 +19,17 @@ public class AdministrationPanel extends javax.swing.JPanel {
     TabView tv;
     EmployeeAdministrationPanel eap;
     VehicleAdministrationPanel vap;
+    JFrame parent;
     
     /**
      * Creates new form AdministrationPanel
      */
-    public AdministrationPanel() {
+    public AdministrationPanel(JFrame parent) {
+        this.parent = parent;
         initComponents();
         
         tv = new TabView();
-        eap = new EmployeeAdministrationPanel();
+        eap = new EmployeeAdministrationPanel(parent);
         vap = new VehicleAdministrationPanel();
         tv.addNewTab("Medarbejder", eap);
         tv.addNewTab("Biler", vap);

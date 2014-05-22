@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         tv = new TabView();
         ov = new Overview();
-        ap = new AdministrationPanel();
+        ap = new AdministrationPanel(this);
         head = new Header();
         
         tv.addNewTab("Overblik", ov);

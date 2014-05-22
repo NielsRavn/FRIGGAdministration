@@ -17,8 +17,8 @@ import javax.swing.table.AbstractTableModel;
 public class EmployeeAdministrationTableModel extends AbstractTableModel{
 
     ArrayList<Employee> employees;
-    String[] colNames = {"First name", "Last name", "Chauffør", "TeamLeader"};
-    Class[] classes = {String.class, String.class, Boolean.class, Boolean.class};
+    String[] colNames = {"Login id","First name", "Last name", "Chauffør", "TeamLeader"};
+    Class[] classes = {Integer.class, String.class, String.class, Boolean.class, Boolean.class};
     
     public EmployeeAdministrationTableModel(){
         employees = new ArrayList<>();
@@ -41,12 +41,14 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
         Employee e = employees.get(rowIndex);
         switch (columnIndex){
             case 0:
-                return e.getFirstName();
+                return e.getEmplyeeId();
             case 1:
+                return e.getFirstName();
+            case 2:
                 return e.getLastName();
-            case 2: 
+            case 3: 
                 return e.isDriver();
-            case 3:
+            case 4:
                 return e.isTeamLeader();
         }
         return null;
@@ -58,15 +60,17 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
         System.out.println("setting value");
         switch (columnIndex){
             case 0:
+                e.setEmplyeeId((int) value);
+            case 1:
                  e.setFirstName((String) value);
                 break;
-            case 1:
+            case 2:
                 e.setLastName((String) value);
                 break;
-            case 2: 
+            case 3: 
                 e.setDriver((boolean) value);
                 break;
-            case 3:
+            case 4:
                 e.setTeamLeader((boolean) value);
                 break;
         }
@@ -74,6 +78,7 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(columnIndex == 0) return false;
         return true;
     }
 
