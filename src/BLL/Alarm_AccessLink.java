@@ -36,4 +36,7 @@ public class Alarm_AccessLink {
     public ArrayList<Integer> getCarNrByAlarmID (int ID) throws SQLException {
         return aa.getCarNrByAlarmID (ID);
     }
+
+    public void updateAlarm(Alarm a) throws SQLException {
+        aa.updateAlarm(a);    }
 }
