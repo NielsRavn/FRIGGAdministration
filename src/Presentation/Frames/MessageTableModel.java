@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class MessageTableModel extends AbstractTableModel{
 
     ArrayList<Message> messages;
-    String[] colNames = {"Besked", "Arkiveret"};
+    String[] colNames = {"Besked", "Arkiver"};
     Class[] classes = {String.class, Boolean.class};
 
     public MessageTableModel(ArrayList<Message> messages) {
@@ -46,14 +46,23 @@ public class MessageTableModel extends AbstractTableModel{
             case 0:
                 return m.getMessage();
             case 1:
-                return m.isShown();
+                return !m.isShown();
         }
         return null;
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        super.setValueAt(aValue, rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+        Message m = messages.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                m.setMessage((String)aValue);
+                break;
+            case 1:
+                m.setShown(!(boolean) aValue);
+                break;
+        }
+        
     }
 
     @Override
@@ -69,6 +78,11 @@ public class MessageTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colNames[column];
+    }
+
+    void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
+        fireTableDataChanged();
     }
     
     

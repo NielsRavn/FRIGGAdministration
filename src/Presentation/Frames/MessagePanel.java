@@ -3,8 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
+
+import BE.Message;
+import BLL.Message_AccessLink;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -12,11 +20,23 @@ package Presentation.Frames;
  */
 public class MessagePanel extends javax.swing.JPanel {
 
+    MessageTableModel mtm;
+    Message_AccessLink mal;
+
     /**
      * Creates new form MessagePanel
      */
     public MessagePanel() {
+        try {
+            mal = new Message_AccessLink();
+        } catch (IOException ex) {
+        }
         initComponents();
+        mtm = new MessageTableModel();
+        tblMessages.setModel(mtm);
+        TableColumn tc = tblMessages.getColumnModel().getColumn(1);
+        tc.setMaxWidth(100);
+        search();
     }
 
     /**
@@ -29,25 +49,38 @@ public class MessagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
+        cbVisArkiverede = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        btnNewMessage = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblMessages = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
-        jCheckBox1.setText("Vis arkiverede beskeder");
-        jCheckBox1.setToolTipText("");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbVisArkiverede.setText("Vis arkiverede beskeder");
+        cbVisArkiverede.setToolTipText("");
+        cbVisArkiverede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                cbVisArkiveredeActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBox1);
+        jPanel1.add(cbVisArkiverede);
 
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btnNewMessage.setText("Ny besked");
+        btnNewMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewMessageActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnNewMessage);
+
+        add(jPanel3, java.awt.BorderLayout.SOUTH);
+
+        tblMessages.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -58,23 +91,45 @@ public class MessagePanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblMessages);
 
-        jPanel2.add(jScrollPane1);
-
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    private void cbVisArkiveredeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVisArkiveredeActionPerformed
+        search();
+    }//GEN-LAST:event_cbVisArkiveredeActionPerformed
+
+    private void btnNewMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMessageActionPerformed
+        createNewMessage();
+    }//GEN-LAST:event_btnNewMessageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton btnNewMessage;
+    private javax.swing.JCheckBox cbVisArkiverede;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblMessages;
     // End of variables declaration//GEN-END:variables
+
+    public void search() {
+        boolean archived = cbVisArkiverede.isSelected();
+        ArrayList<Message> messages = new ArrayList<>();
+        try {
+            messages = mal.getMessagesByArchivedStatus(archived);
+        } catch (SQLException ex) {
+        }
+        mtm.setMessages(messages);
+    }
+
+    private void createNewMessage() {
+        try {
+            mal.createNewMessage();
+        } catch (SQLException ex) {
+        }
+        search();
+    }
+
 }

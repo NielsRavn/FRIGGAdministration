@@ -35,6 +35,8 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
             eal = new Employee_AccessLink();
             employee = null;
         } catch (IOException ex) {}
+        setLocationRelativeTo(parent);
+        setVisible(true);
     }
 
     /**
@@ -118,9 +120,11 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
             if(eal.checkNewEmployeeId(id)){
                 dispose();
             }else{
+                employee = null;
                JOptionPane.showMessageDialog(rootPane, "Id'et er allerede brugt"); 
             } 
         } catch (SQLException ex) {
+            employee = null;
             ex.printStackTrace();
         }
     }

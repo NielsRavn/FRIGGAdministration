@@ -187,13 +187,12 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
 
     private void newEmployee() {
         NewEmployeeDialog ned = new NewEmployeeDialog(parent, true);
-        ned.setVisible(true);
         Employee e = ned.getEmployee();
-        try {
-            commandStack.addCommandToStack(new EmployeeCreateCommand(e));
-        } catch (SQLException | IOException ex) {
-        }
         if (e != null) {
+            try {
+                commandStack.addCommandToStack(new EmployeeCreateCommand(e.getCopyOfEmployee()));
+            } catch (SQLException | IOException ex) {
+            }
             eatm.getEmployees().add(e);
             eatm.fireTableDataChanged();
         }
@@ -210,10 +209,10 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
             search();
         }
     }
-    
-    public void setButtonsEnabled(){
-            btnForward.setEnabled(commandStack.canGoForward());
-            btnBackwards.setEnabled(commandStack.canGoBackwards());        
+
+    public void setButtonsEnabled() {
+        btnForward.setEnabled(commandStack.canGoForward());
+        btnBackwards.setEnabled(commandStack.canGoBackwards());
     }
 
     private void forward() {
@@ -236,28 +235,29 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
         btnNewEmployee.addKeyListener(urk);
         tfSearch.addKeyListener(urk);
     }
-    
-    private class MyUndoAndRedoKeyListener extends KeyAdapter{
-        
+
+    private class MyUndoAndRedoKeyListener extends KeyAdapter {
+
         boolean controlHold = false;
 
         @Override
         public void keyReleased(KeyEvent e) {
-            if(e.getKeyCode() == KeyEvent.VK_CONTROL)controlHold = false;
+            if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                controlHold = false;
+            }
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            if(e.getKeyCode() == KeyEvent.VK_CONTROL) controlHold = true;
-            if(e.getKeyCode() == KeyEvent.VK_Z && controlHold){
-                backwards();
+            if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                controlHold = true;
             }
-            else if(e.getKeyCode() == KeyEvent.VK_Y && controlHold){
+            if (e.getKeyCode() == KeyEvent.VK_Z && controlHold) {
+                backwards();
+            } else if (e.getKeyCode() == KeyEvent.VK_Y && controlHold) {
                 forward();
             }
         }
-        
-        
-        
+
     }
 }

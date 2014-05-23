@@ -18,6 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     Overview ov;
     AdministrationPanel ap;
+    MessagePanel mp;
     TabView tv;
     Header head;
 
@@ -33,10 +34,12 @@ public class MainFrame extends javax.swing.JFrame {
         tv = new TabView();
         ov = new Overview();
         ap = new AdministrationPanel(this);
+        mp = new MessagePanel();
         head = new Header();
         
         tv.addNewTab("Overblik", ov);
         tv.addNewTab("Administration", ap);
+        tv.addNewTab("Beskeder", mp);
         
         add(head, BorderLayout.NORTH);
         add(tv, BorderLayout.CENTER);
