@@ -25,7 +25,7 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
     CommandStack commandStack;
     EmployeeAdministrationPanel parent;
     ArrayList<Employee> employees;
-    String[] colNames = {"Login id","First name", "Last name", "Chauffør", "TeamLeader"};
+    String[] colNames = {"Login id","Fornavn", "Efternavn", "Chauffør", "Holdleder"};
     Class[] classes = {Integer.class, String.class, String.class, Boolean.class, Boolean.class};
     
     public EmployeeAdministrationTableModel(){

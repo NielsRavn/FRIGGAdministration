@@ -53,7 +53,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="S&#xf8;ge text:"/>
+            <Property name="text" type="java.lang.String" value="S&#xf8;ge tekst:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfSearch">
@@ -90,7 +90,8 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnNewEmployee">
               <Properties>
-                <Property name="text" type="java.lang.String" value="New Employee"/>
+                <Property name="text" type="java.lang.String" value="Ny medarbejder"/>
+                <Property name="actionCommand" type="java.lang.String" value=""/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewEmployeeActionPerformed"/>

@@ -91,7 +91,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setText("Søge text:");
+        jLabel1.setText("Søge tekst:");
         jPanel1.add(jLabel1);
 
         tfSearch.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -108,7 +108,8 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
 
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        btnNewEmployee.setText("New Employee");
+        btnNewEmployee.setText("Ny medarbejder");
+        btnNewEmployee.setActionCommand("");
         btnNewEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewEmployeeActionPerformed(evt);
