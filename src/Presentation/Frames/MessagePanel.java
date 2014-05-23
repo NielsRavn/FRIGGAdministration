@@ -32,7 +32,7 @@ public class MessagePanel extends javax.swing.JPanel {
         } catch (IOException ex) {
         }
         initComponents();
-        mtm = new MessageTableModel();
+        mtm = new MessageTableModel(this);
         tblMessages.setModel(mtm);
         TableColumn tc = tblMessages.getColumnModel().getColumn(1);
         tc.setMaxWidth(100);

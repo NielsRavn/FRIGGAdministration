@@ -7,7 +7,12 @@
 package Presentation.Frames;
 
 import BE.Message;
+import BLL.Message_AccessLink;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -19,14 +24,21 @@ public class MessageTableModel extends AbstractTableModel{
     ArrayList<Message> messages;
     String[] colNames = {"Besked", "Arkiver"};
     Class[] classes = {String.class, Boolean.class};
+    Message_AccessLink mal;
+    MessagePanel parent;
 
     public MessageTableModel(ArrayList<Message> messages) {
+        try {
+            mal = new Message_AccessLink();
+        } catch (IOException ex) {
+        }
         this.messages = messages;
         fireTableDataChanged();
     }
 
-    public MessageTableModel() {
+    public MessageTableModel(MessagePanel parent) {
         this(new ArrayList<Message>());
+        this.parent = parent;
     }
     
     @Override
@@ -62,7 +74,12 @@ public class MessageTableModel extends AbstractTableModel{
                 m.setShown(!(boolean) aValue);
                 break;
         }
-        
+        try {
+            mal.updateMessage(m);
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        parent.search();
     }
 
     @Override

@@ -32,4 +32,8 @@ public class Message_AccessLink {
     public void createNewMessage() throws SQLException {
         ma.createNewMessage();
     }
+
+    public void updateMessage(Message m) throws SQLException {
+        ma.updateMessage(m);
+    }
 }

@@ -72,4 +72,27 @@ public class Message_Access extends DatabaseConnection{
             }
         }
     }
+
+    public void updateMessage(Message m) throws SQLException {
+        Connection con = null;
+        
+        try{
+            con = getConnection();
+            Statement stmnt = con.createStatement();
+            
+            int affectedRows = stmnt.executeUpdate("UPDATE Message SET "
+                    + "message = '" + m.getMessage() + "', "
+                    + "shown = '" + m.isShown() + "' "
+                    + "WHERE id = " + m.getId() +";");
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Updating failed, no rows affected");
+            }
+            
+        }finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }
