@@ -6,17 +6,49 @@
 
 package Presentation.Frames;
 
+import BE.Car;
+import BLL.Car_AccessLink;
+import BLL.Commands.CarCreateCommand;
+import BLL.Commands.CommandStack;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.RowSorter;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Niels
  */
 public class CarAdministrationPanel extends javax.swing.JPanel {
 
+    CarTableModel ctm;
+    CommandStack commandStack;
+    Car_AccessLink cal;
+    RowSorter<CarTableModel> rowSorter;
+    JFrame parent;
+    
     /**
      * Creates new form VehicleAdministrationPanel
      */
-    public CarAdministrationPanel() {
+    public CarAdministrationPanel(JFrame parent) {
+        this.parent = parent;
+        commandStack = new CommandStack();
         initComponents();
+        try {
+            cal = new Car_AccessLink();
+        } catch (IOException ex) {
+        }
+        tblCar.getTableHeader().setReorderingAllowed(false);
+        ctm = new CarTableModel(this, commandStack);
+        rowSorter = new TableRowSorter<>(ctm);
+        tblCar.setModel(ctm);
+        tblCar.setRowSorter(rowSorter);
+        search();
+        addKeyListeners();
     }
 
     /**
@@ -30,44 +62,64 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfSearch = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        btnForward = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnNewCar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCar = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
         jLabel1.setText("Søge tekst:");
         jPanel1.add(jLabel1);
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(150, 20));
-        jPanel1.add(jTextField1);
+        tfSearch.setPreferredSize(new java.awt.Dimension(150, 20));
+        tfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfSearchKeyReleased(evt);
+            }
+        });
+        jPanel1.add(tfSearch);
 
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("<--");
-        jPanel3.add(jButton1);
+        btnBack.setText("<--");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnBack);
 
-        jButton2.setText("-->");
-        jPanel3.add(jButton2);
+        btnForward.setText("-->");
+        btnForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForwardActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnForward);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.WEST);
 
-        jButton3.setText("Ny bil");
-        jPanel4.add(jButton3);
+        btnNewCar.setText("Ny bil");
+        btnNewCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewCarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnNewCar);
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.EAST);
 
         add(jPanel2, java.awt.BorderLayout.SOUTH);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -78,23 +130,126 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCar);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tfSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyReleased
+        search();
+    }//GEN-LAST:event_tfSearchKeyReleased
+
+    private void btnNewCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCarActionPerformed
+        newCar();
+    }//GEN-LAST:event_btnNewCarActionPerformed
+
+    private void btnForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForwardActionPerformed
+        forward();
+    }//GEN-LAST:event_btnForwardActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        backwards();
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnForward;
+    private javax.swing.JButton btnNewCar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblCar;
+    private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
+
+    public void search() {
+        String query = tfSearch.getText();
+        ArrayList<Car> employees = new ArrayList<>();
+        try {
+            employees = cal.getCarsBySearchQuery(query);
+        } catch (SQLException ex) {
+        }
+        ctm.setCars(employees);
+        setButtonsEnabled();
+    }
+
+    private void newCar() {
+        NewCarDialog ncd = new NewCarDialog(parent, true);
+        Car c = ncd.getCar();
+        if (c != null) {
+            try {
+                commandStack.addCommandToStack(new CarCreateCommand(c.getCopyOfCar()));
+            } catch (SQLException | IOException ex) {
+            }
+            ctm.getCars().add(c);
+            ctm.fireTableDataChanged();
+        }
+        setButtonsEnabled();
+    }
+
+    private void backwards() {
+        if (commandStack.canGoBackwards()) {
+            try {
+                commandStack.goBack();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            search();
+        }
+    }
+
+    public void setButtonsEnabled() {
+        btnForward.setEnabled(commandStack.canGoForward());
+        btnBack.setEnabled(commandStack.canGoBackwards());
+    }
+
+    private void forward() {
+        if (commandStack.canGoForward()) {
+            try {
+                commandStack.goForward();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            search();
+        }
+    }
+
+    private void addKeyListeners() {
+        MyUndoAndRedoKeyListener urk = new MyUndoAndRedoKeyListener();
+        addKeyListener(urk);
+        tblCar.addKeyListener(urk);
+        btnBack.addKeyListener(urk);
+        btnForward.addKeyListener(urk);
+        btnNewCar.addKeyListener(urk);
+        tfSearch.addKeyListener(urk);
+    }
+
+    private class MyUndoAndRedoKeyListener extends KeyAdapter {
+
+        boolean controlHold = false;
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                controlHold = false;
+            }
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                controlHold = true;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_Z && controlHold) {
+                backwards();
+            } else if (e.getKeyCode() == KeyEvent.VK_Y && controlHold) {
+                forward();
+            }
+        }
+
+    }
 }

@@ -6,33 +6,36 @@
 
 package BLL.Commands;
 
+import BE.Car;
 import BE.Employee;
+import DAL.Car_Access;
 import DAL.Employee_Access;
 import java.io.IOException;
 import java.sql.SQLException;
 
 /**
  *
- * @author Niels Kristian Ravn
+ * @author Niels
  */
-public class EmployeeCreateCommand implements ICommand{
+public class CarUpdateCommand implements ICommand{
 
-    Employee employee;
-    Employee_Access eal;
+    Car newCar, oldCar;
+    Car_Access ca;
     
-    public EmployeeCreateCommand(Employee employee) throws IOException{
-        eal = new Employee_Access();
-        this.employee = employee;
+    public CarUpdateCommand(Car newCar, Car oldCar) throws IOException{
+        ca = new Car_Access();
+        this.newCar = newCar;
+        this.oldCar = oldCar;
     }
     
     @Override
     public void excecute() throws SQLException {
-        eal.createNewEmployee(employee);
+        ca.updateCar(newCar);
     }
 
     @Override
     public void revoke() throws SQLException {
-        eal.deleteEmployee(employee);
+        ca.updateCar(oldCar);
     }
     
 }

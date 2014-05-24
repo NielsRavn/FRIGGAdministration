@@ -46,7 +46,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
         }
         tblEmployee.getTableHeader().setReorderingAllowed(false);
         eatm = new EmployeeAdministrationTableModel(this, commandStack);
-        rowSorter = new TableRowSorter<EmployeeAdministrationTableModel>(eatm);
+        rowSorter = new TableRowSorter<>(eatm);
         tblEmployee.setModel(eatm);
         tblEmployee.setRowSorter(rowSorter);
         search();

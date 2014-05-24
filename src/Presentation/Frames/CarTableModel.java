@@ -6,6 +6,10 @@
 
 package Presentation.Frames;
 
+import BE.Car;
+import BLL.Commands.CommandStack;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -14,39 +18,83 @@ import javax.swing.table.AbstractTableModel;
  */
 public class CarTableModel extends AbstractTableModel{
 
+    ArrayList<Car> cars;
+    String[] colNames = {"Bil nr", "Billede", "Navn", "Pladser"};
+    Class[] classes = {Integer.class, ImageIcon.class, String.class, Integer.class};
+    CarAdministrationPanel parent;
+    CommandStack commandStack;
+    
+    public CarTableModel(CarAdministrationPanel parent, CommandStack commandStack){
+        cars = new ArrayList<>();
+        this.parent = parent;
+        this.commandStack = commandStack;
+        fireTableDataChanged();
+    }
+    
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cars.size();
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return colNames.length;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Car c = cars.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                return c.getCarNr();
+            case 1:
+                return c.getImage();
+            case 2:
+                return c.getName();
+            case 3:
+                return c.getSeats();
+        }
+        return null;
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        super.setValueAt(aValue, rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+        Car c = cars.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                c.setCarNr((int) aValue);
+            case 1:
+                c.setImage((ImageIcon) aValue);
+            case 2:
+                c.setName((String) aValue);
+            case 3:
+                c.setSeats((int) aValue);
+        }
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return super.isCellEditable(rowIndex, columnIndex); //To change body of generated methods, choose Tools | Templates.
+        if(columnIndex == 0) return false;
+        return true;
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return super.getColumnClass(columnIndex); //To change body of generated methods, choose Tools | Templates.
+        return classes[columnIndex];
     }
 
     @Override
     public String getColumnName(int column) {
-        return super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
+        return colNames[column];
+    }
+
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
+        fireTableDataChanged();
+    }
+
+    public ArrayList<Car> getCars() {
+        return cars;
     }
     
     
