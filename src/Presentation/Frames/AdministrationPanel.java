@@ -18,7 +18,7 @@ public class AdministrationPanel extends javax.swing.JPanel {
 
     TabView tv;
     EmployeeAdministrationPanel eap;
-    VehicleAdministrationPanel vap;
+    CarAdministrationPanel vap;
     JFrame parent;
     
     /**
@@ -30,7 +30,7 @@ public class AdministrationPanel extends javax.swing.JPanel {
         
         tv = new TabView();
         eap = new EmployeeAdministrationPanel(parent);
-        vap = new VehicleAdministrationPanel();
+        vap = new CarAdministrationPanel();
         tv.addNewTab("Medarbejder", eap);
         tv.addNewTab("Biler", vap);
         
