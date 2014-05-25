@@ -8,8 +8,13 @@ package Presentation.Frames;
 
 import BE.Car;
 import BE.MyImage;
+import BLL.Commands.CarUpdateCommand;
 import BLL.Commands.CommandStack;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
@@ -61,6 +66,7 @@ public class CarTableModel extends AbstractTableModel{
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         Car c = cars.get(rowIndex);
+        Car old = c.getCopyOfCar();
         switch (columnIndex){
             case 0:
                 c.setCarNr((int) aValue);
@@ -74,6 +80,11 @@ public class CarTableModel extends AbstractTableModel{
             case 3:
                 c.setSeats((int) aValue);
                 break;
+        }
+        try {
+            commandStack.addCommandToStack(new CarUpdateCommand(c, old));
+            parent.search();
+        } catch (IOException | SQLException ex) {
         }
     }
 

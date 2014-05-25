@@ -7,7 +7,11 @@
 package Presentation.Components;
 
 import BE.MyImage;
+import BLL.ImageFileHandler;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
@@ -20,15 +24,21 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     MyImage image;
     JFileChooser fileChooser;
     JFrame parent;
+    ImageFileHandler ifh;
     
     /**
      * Creates new form ImageEditorDialog
+     * @param parent the frame that this sits ontop, to make it modal.
+     * @param modal if this frame should be modal.
      */
     public ImageEditorDialog(JFrame parent, boolean modal) {
         super(parent, modal);
         this.parent = parent;
         initComponents();
         fileChooser = new JFileChooser();
+        ifh = new ImageFileHandler();
+        setSize(700, 300);
+        setLocationRelativeTo(parent); 
     }
 
     /**
@@ -104,7 +114,7 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
-        dispose();
+        approve();
     }//GEN-LAST:event_btnApproveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -113,7 +123,7 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void tfPathKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPathKeyReleased
-        setImage();
+        setImageFromTextField();
     }//GEN-LAST:event_tfPathKeyReleased
 
 
@@ -128,6 +138,10 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tfPath;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * sets the image that is currently shown.
+     * @param currentImage the image to be shown
+     */
     public void setImage(MyImage currentImage) {
         image = currentImage;
         tfPath.setText(image.getPath());
@@ -136,15 +150,25 @@ public class ImageEditorDialog extends javax.swing.JDialog {
         repaint();
     }
 
+    /**
+     * 
+     * @return the image that is currently picked.
+     */
     public MyImage getImage() {
         return image;
     }
 
-    private void setImage() {
+    /**
+     * sets the image from the path written in the textfield
+     */
+    private void setImageFromTextField() {
         String path = tfPath.getText();
         setImage(new MyImage(path));
     }
 
+    /**
+     * opens a file chooser to choose an image
+     */
     private void chooseFile() {
         fileChooser.setCurrentDirectory(new File(image.getPath()));
         int result = fileChooser.showOpenDialog(parent);
@@ -153,5 +177,17 @@ public class ImageEditorDialog extends javax.swing.JDialog {
             File f = fileChooser.getSelectedFile();
             setImage(new MyImage(f.getPath()));
         }
+    }
+
+    private void approve() {
+        File f = fileChooser.getSelectedFile();
+        if(f == null) f = new File(image.getPath());
+        String newPath = ""; 
+        try {
+            newPath = ifh.copyFileToDefaultDirectory(f);
+        } catch (IOException ex) {
+        }
+        setImage(new MyImage(newPath));
+        dispose();
     }
 }
