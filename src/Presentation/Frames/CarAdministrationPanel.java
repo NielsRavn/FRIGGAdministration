@@ -179,6 +179,10 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * uses the search query text to search for data in the database,
+     * and sets the data in the table, plus updates the back and fourth buttons.
+     */
     public void search() {
         String query = tfSearch.getText();
         ArrayList<Car> employees = new ArrayList<>();
@@ -190,6 +194,11 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         setButtonsEnabled();
     }
 
+    /**
+     * creates a new dialog to ask for the nr of a new car to be made.
+     * if the return of the dialog is not null, a command to create teh new car
+     * is created and executed.
+     */
     private void newCar() {
         NewCarDialog ncd = new NewCarDialog(parent, true);
         Car c = ncd.getCar();
@@ -204,6 +213,9 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         setButtonsEnabled();
     }
 
+    /**
+     * goes backwards in the commandstack, reversing the actions done.
+     */
     private void backwards() {
         if (commandStack.canGoBackwards()) {
             try {
@@ -215,11 +227,18 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * sets the enabled status of the back and forward buttons so that they are only active
+     * when they can be used.
+     */
     public void setButtonsEnabled() {
         btnForward.setEnabled(commandStack.canGoForward());
         btnBack.setEnabled(commandStack.canGoBackwards());
     }
 
+    /**
+     * goes forward in the command stack, redoing the action that has previosly been undone. 
+     */
     private void forward() {
         if (commandStack.canGoForward()) {
             try {
@@ -231,6 +250,10 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * adds keylistener to just about every focus able object,
+     * so that ctrl-z and ctrl-y always can be used to go back and forward.
+     */
     private void addKeyListeners() {
         MyUndoAndRedoKeyListener urk = new MyUndoAndRedoKeyListener();
         addKeyListener(urk);
@@ -241,6 +264,9 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         tfSearch.addKeyListener(urk);
     }
 
+    /**
+     * my keylistener to listen for ctrl-z and ctrl-y keyboard actions.
+     */
     private class MyUndoAndRedoKeyListener extends KeyAdapter {
 
         boolean controlHold = false;
@@ -265,13 +291,17 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * adds a cell renderer to the image column to render it corectly
+     */
     private void addCellRenderes() {
         TableColumn imageCol = tblCar.getColumnModel().getColumn(1);
         imageCol.setCellRenderer(new MyImageCellRenderer());
     }
-    
-    
 
+    /**
+     * my cell render to resize and render images on screen.
+     */
     private class MyImageCellRenderer extends DefaultTableCellRenderer {
 
         @Override

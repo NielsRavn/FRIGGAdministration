@@ -88,12 +88,13 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel{
         }
         try {
             commandStack.addCommandToStack(new EmployeeUpdateCommand(e, old));
+            fireTableDataChanged();
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        parent.search();
+        parent.setButtonsEnabled();
     }
 
     @Override
