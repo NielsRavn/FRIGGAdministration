@@ -20,17 +20,31 @@ public class EmployeeUpdateCommand implements ICommand{
     Employee newEmployee, oldEmployee;
     Employee_Access ea;
     
+    /**
+     * creates a new command to update an employee
+     * @param newEmployee the new employee for going forward
+     * @param oldEmployee the old employee for going backwards
+     * @throws IOException 
+     */
     public EmployeeUpdateCommand(Employee newEmployee, Employee oldEmployee) throws IOException{
         ea = new Employee_Access();
         this.newEmployee = newEmployee;
         this.oldEmployee = oldEmployee;
     }
     
+    /**
+     * updates the employee with the new employee effectively going forward
+     * @throws SQLException 
+     */
     @Override
     public void excecute() throws SQLException {
         ea.updateEmployee(newEmployee);
     }
 
+    /**
+     * updates the employee with the old employee effectively going backwards
+     * @throws SQLException 
+     */
     @Override
     public void revoke() throws SQLException {
         ea.updateEmployee(oldEmployee);
