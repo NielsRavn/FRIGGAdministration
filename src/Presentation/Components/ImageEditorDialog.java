@@ -179,6 +179,11 @@ public class ImageEditorDialog extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * if there is a file chosen in the file choser it gets that, else it make one
+     * from the path in the MyImage. then it copies the file to the directory give
+     * in the config file and sets the image to the new image path.
+     */
     private void approve() {
         File f = fileChooser.getSelectedFile();
         if(f == null) f = new File(image.getPath());

@@ -17,6 +17,13 @@ import java.io.IOException;
  */
 public class ImageFileHandler {
 
+    /**
+     * copies the given file to the directory given in the confiiguration file.
+     * and return the new file path
+     * @param f the file to be copied
+     * @return the directory of the new file
+     * @throws IOException 
+     */
     public String copyFileToDefaultDirectory(File f) throws IOException {
         String destDirectory = ConfFile.getInstance().getResourceFolderPath();
         String name = f.getName();

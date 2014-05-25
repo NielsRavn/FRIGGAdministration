@@ -32,23 +32,21 @@ public class ImageEditor extends AbstractCellEditor
     ImageEditorDialog dialog;
     protected static final String EDIT = "edit";
 
+    /**
+     * creates a new imageEditor with a button to be put in to the table cell
+     * @param parent the jframe, for giving the dialog.
+     */
     public ImageEditor(JFrame parent) {
-        //Set up the editor (from the table's point of view),
-        //which is a button.
-        //This button brings up the color chooser dialog,
-        //which is the editor from the user's point of view.
+        
         button = new JButton();
         button.setActionCommand(EDIT);
         button.addActionListener(this);
         button.setBorderPainted(false);
-
-        //Set up the dialog that the button brings up.
         dialog = new ImageEditorDialog(parent, true);
     }
 
     /**
-     * Handles events from the editor button and from
-     * the dialog's OK button.
+     * handles event on the cell to edit.
      */
     public void actionPerformed(ActionEvent e) {
         if (EDIT.equals(e.getActionCommand())) {
@@ -69,12 +67,19 @@ public class ImageEditor extends AbstractCellEditor
         }
     }
 
-    //Implement the one CellEditor method that AbstractCellEditor doesn't.
+    /**
+     * called by the table when the editing stops.
+     * @return the value saves as the current image.
+     */
+    @Override
     public Object getCellEditorValue() {
         return currentImage;
     }
 
-    //Implement the one method defined by TableCellEditor.
+    /**
+     * method from cell editor, returns a button to be shown in the table when it is to be edited.
+     */
+    @Override
     public Component getTableCellEditorComponent(JTable table,
                                                  Object value,
                                                  boolean isSelected,

@@ -26,6 +26,12 @@ public class Car_Access extends DatabaseConnection{
         super();
     }
 
+    /**
+     * gets alle the cars where carnr or car name contains the search query
+     * @param query the query to search for
+     * @return a list of all cars which meets the search criteria.
+     * @throws SQLException 
+     */
     public ArrayList<Car> getCarsBySearchQuery(String query) throws SQLException {
         Connection con = null;
         ArrayList<Car> cars = new ArrayList<>();
@@ -55,6 +61,12 @@ public class Car_Access extends DatabaseConnection{
         return cars;
     }
 
+    /**
+     * checks if the carnr is in the database 
+     * @param carNr the carnr to check for.
+     * @return false if the car is in the database, truw otherwise
+     * @throws SQLException 
+     */
     public boolean checkNewCarNr(int carNr) throws SQLException {
         Connection con = null;
         
@@ -74,6 +86,11 @@ public class Car_Access extends DatabaseConnection{
         }
     }
 
+    /**
+     * updates a given car in the database
+     * @param c the car to update.
+     * @throws SQLException 
+     */
     public void updateCar(Car c) throws SQLException {
         Connection con = null;
         
@@ -98,6 +115,11 @@ public class Car_Access extends DatabaseConnection{
         }
     }
 
+    /**
+     * deletes the given car in the database
+     * @param car the car to be deleted.
+     * @throws SQLException 
+     */
     public void deleteCar(Car car) throws SQLException {
         Connection con = null;
         
@@ -118,6 +140,11 @@ public class Car_Access extends DatabaseConnection{
         }
     }
 
+    /**
+     * creates a new car in the database with all info commited
+     * @param car the car to be created.
+     * @throws SQLException 
+     */
     public void createNewCar(Car car) throws SQLException {
         Connection con = null;
         

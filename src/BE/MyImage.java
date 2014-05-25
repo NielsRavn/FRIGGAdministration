@@ -17,22 +17,28 @@ public class MyImage {
     ImageIcon image;
     String path;
 
-    public MyImage(ImageIcon image, String path) {
-        this.image = image;
-        this.path = path;
-    }
-
+    /**
+     * creates a new imageicon and still saves the image path.
+     * @param path the path for the image
+     */
     public MyImage(String path) {
         this.path = path;
         image = new ImageIcon(path);
     }
     
     
-
+    /**
+     * 
+     * @return the imageicon of the given path
+     */
     public ImageIcon getImage() {
         return image;
     }
 
+    /**
+     * 
+     * @return the file path for this image
+     */
     public String getPath() {
         return path;
     }

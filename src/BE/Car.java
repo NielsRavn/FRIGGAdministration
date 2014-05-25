@@ -19,6 +19,13 @@ public class Car {
     String name;
     int seats;
 
+    /**
+     * creates a new car with the given elemets.
+     * @param carNr the car nr
+     * @param iconPath the path where the picture is
+     * @param name the name of the car
+     * @param seats how many seats the car has.
+     */
     public Car(int carNr, String iconPath, String name, int seats) {
         this.carNr = carNr;
         image = new MyImage(iconPath);
@@ -26,6 +33,10 @@ public class Car {
         this.seats = seats;
     }
 
+    /**
+     * creates a new car with only a car nr, the rest will be set to a database save able state
+     * @param carNr the car nr of the car.
+     */
     public Car(int carNr) {
         this.carNr = carNr;
         this.image = new MyImage("");
@@ -66,6 +77,10 @@ public class Car {
         this.image = image;
     }
     
+    /**
+     * creates a copy of this car object
+     * @return a new car object with same values as this one.
+     */
     public Car getCopyOfCar(){
         Car c = new Car(carNr, image.getPath(), name, seats);
         return c;

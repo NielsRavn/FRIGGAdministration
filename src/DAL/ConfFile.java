@@ -84,7 +84,7 @@ public class ConfFile {
     
     /**
      * 
-     * @return the password for the database user.
+     * @return the resource forlder path for images to be saved in and loaded from.
      */
     public String getResourceFolderPath() {
         return prop.getProperty(RES_FOLDER_PATH);

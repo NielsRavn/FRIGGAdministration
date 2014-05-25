@@ -19,7 +19,12 @@ import java.io.IOException;
  */
 public class FileHandler {
     
-    
+    /**
+     * copies a file from one location to another
+     * @param oldLocation the file to be copied
+     * @param newLocation a file representing the new location, full with file type for example .jpg.
+     * @throws IOException 
+     */
     public static void copyFile(File oldLocation, File newLocation) throws IOException {
         if ( oldLocation.exists( )) {
             BufferedInputStream  reader = new BufferedInputStream( new FileInputStream(oldLocation) );
