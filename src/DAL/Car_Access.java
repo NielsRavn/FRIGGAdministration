@@ -82,7 +82,7 @@ public class Car_Access extends DatabaseConnection{
             Statement stmnt = con.createStatement();
             
             int affectedRows = stmnt.executeUpdate("UPDATE Car SET "
-                    + "iconPath = '" + c.getIconPath() + "', "
+                    + "iconPath = '" + c.getImage().getPath()+ "', "
                     + "name = '" + c.getName() + "', "
                     + "seats = " + c.getSeats() +" "
                     + "WHERE carNr = " + c.getCarNr() + ";");
@@ -127,7 +127,7 @@ public class Car_Access extends DatabaseConnection{
             
             int affectedRows = stmnt.executeUpdate("INSERT INTO Car VALUES ("
                     + car.getCarNr() + ", '"
-                    + car.getIconPath() + "', '"
+                    + car.getImage().getPath()+ "', '"
                     + car.getName() + "', "
                     + car.getSeats() +");");
             

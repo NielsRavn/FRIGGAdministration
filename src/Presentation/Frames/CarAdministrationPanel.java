@@ -3,20 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
 import BE.Car;
+import BE.MyImage;
 import BLL.Car_AccessLink;
 import BLL.Commands.CarCreateCommand;
 import BLL.Commands.CommandStack;
+import Presentation.Components.ImageEditor;
+import Presentation.MyConstants;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.RowSorter;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -30,7 +41,7 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
     Car_AccessLink cal;
     RowSorter<CarTableModel> rowSorter;
     JFrame parent;
-    
+
     /**
      * Creates new form VehicleAdministrationPanel
      */
@@ -47,8 +58,10 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         rowSorter = new TableRowSorter<>(ctm);
         tblCar.setModel(ctm);
         tblCar.setRowSorter(rowSorter);
+        tblCar.setDefaultEditor(ImageIcon.class, new ImageEditor(parent));
         search();
         addKeyListeners();
+        addCellRenderes();
     }
 
     /**
@@ -250,6 +263,32 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
                 forward();
             }
         }
+    }
 
+    private void addCellRenderes() {
+        TableColumn imageCol = tblCar.getColumnModel().getColumn(1);
+        imageCol.setCellRenderer(new MyImageCellRenderer());
+    }
+    
+    
+
+    private class MyImageCellRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            MyImage image = (MyImage) value;
+            Image img = image.getImage().getImage();
+            BufferedImage bi = new BufferedImage(150, 100, BufferedImage.TYPE_INT_ARGB);
+            Graphics g = bi.createGraphics();
+            g.drawImage(img, 0, 0, 150, 100, null);
+            ImageIcon newIcon = new ImageIcon(bi);
+            table.setRowHeight(row, 100);
+            JLabel lbl = new JLabel();
+            if (isSelected) {
+                lbl.setBackground(MyConstants.COLOR_LIGHT_BLUE);
+            }
+            lbl.setIcon(newIcon);
+            return lbl;
+        }
     }
 }

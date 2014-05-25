@@ -7,6 +7,7 @@
 package Presentation.Frames;
 
 import BE.Car;
+import BE.MyImage;
 import BLL.Commands.CommandStack;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -63,18 +64,26 @@ public class CarTableModel extends AbstractTableModel{
         switch (columnIndex){
             case 0:
                 c.setCarNr((int) aValue);
+                break;
             case 1:
-                c.setImage((ImageIcon) aValue);
+                c.setImage((MyImage) aValue);
+                break;
             case 2:
                 c.setName((String) aValue);
+                break;
             case 3:
                 c.setSeats((int) aValue);
+                break;
         }
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         if(columnIndex == 0) return false;
+//        else if(columnIndex == 1) {
+//            System.out.println("this could maybe work");
+//            //return false;
+//        }
         return true;
     }
 

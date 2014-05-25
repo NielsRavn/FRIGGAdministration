@@ -15,22 +15,20 @@ import javax.swing.ImageIcon;
 public class Car {
     
     int carNr;
-    ImageIcon image;
-    String iconPath, name;
+    MyImage image;
+    String name;
     int seats;
 
     public Car(int carNr, String iconPath, String name, int seats) {
         this.carNr = carNr;
-        this.iconPath = iconPath;
+        image = new MyImage(iconPath);
         this.name = name;
         this.seats = seats;
-        image = new ImageIcon(iconPath);
     }
 
     public Car(int carNr) {
         this.carNr = carNr;
-        this.image = new ImageIcon();
-        this.iconPath = "";
+        this.image = new MyImage("");
         this.name = "";
         this.seats = 0;
     }
@@ -43,13 +41,6 @@ public class Car {
         this.carNr = carNr;
     }
 
-    public ImageIcon getImage() {
-        return image;
-    }
-
-    public void setImage(ImageIcon image) {
-        this.image = image;
-    }
 
     public String getName() {
         return name;
@@ -67,16 +58,16 @@ public class Car {
         this.seats = seats;
     }
 
-    public String getIconPath() {
-        return iconPath;
+    public MyImage getImage() {
+        return image;
     }
 
-    public void setIconPath(String iconPath) {
-        this.iconPath = iconPath;
+    public void setImage(MyImage image) {
+        this.image = image;
     }
     
     public Car getCopyOfCar(){
-        Car c = new Car(carNr, iconPath, name, seats);
+        Car c = new Car(carNr, image.getPath(), name, seats);
         return c;
     }
     

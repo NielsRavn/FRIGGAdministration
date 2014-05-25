@@ -10,7 +10,7 @@ import java.util.Properties;
 public class ConfFile {
 
     private final String PROPERTIES_FILE_URL = "FireAndRescueDatabaseConfig.properties", DATABASE_ADDRESS_KEY = "DatabaseAddress",
-            DATABASE_NAME_KEY = "DatabaseName", DATABASE_USER_KEY = "DatabaseUser", DATABASE_PASSWORD_KEY = "DatabasePassword";
+            DATABASE_NAME_KEY = "DatabaseName", DATABASE_USER_KEY = "DatabaseUser", DATABASE_PASSWORD_KEY = "DatabasePassword", RES_FOLDER_PATH = "ResourceFolderPath";
     
     private Properties prop;
     private static ConfFile instance = null;
@@ -80,6 +80,14 @@ public class ConfFile {
      */
     public String getDBPassword() {
         return prop.getProperty(DATABASE_PASSWORD_KEY);
+    }
+    
+    /**
+     * 
+     * @return the password for the database user.
+     */
+    public String getResourceFolderPath() {
+        return prop.getProperty(RES_FOLDER_PATH);
     }
     
     /**
