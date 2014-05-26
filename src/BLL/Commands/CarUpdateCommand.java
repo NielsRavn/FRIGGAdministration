@@ -39,7 +39,7 @@ public class CarUpdateCommand implements ICommand{
      * @throws SQLException 
      */
     @Override
-    public void excecute() throws SQLException {
+    public void execute() throws SQLException {
         ca.updateCar(newCar);
     }
 

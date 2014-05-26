@@ -35,7 +35,7 @@ public class EmployeeCreateCommand implements ICommand{
      * @throws SQLException 
      */
     @Override
-    public void excecute() throws SQLException {
+    public void execute() throws SQLException {
         eal.createNewEmployee(employee);
     }
 

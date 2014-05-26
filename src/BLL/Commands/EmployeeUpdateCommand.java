@@ -37,7 +37,7 @@ public class EmployeeUpdateCommand implements ICommand{
      * @throws SQLException 
      */
     @Override
-    public void excecute() throws SQLException {
+    public void execute() throws SQLException {
         ea.updateEmployee(newEmployee);
     }
 

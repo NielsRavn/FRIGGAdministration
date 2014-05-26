@@ -35,7 +35,7 @@ public class CarCreateCommand implements ICommand{
      * @throws SQLException 
      */
     @Override
-    public void excecute() throws SQLException {
+    public void execute() throws SQLException {
         cal.createNewCar(car);
     }
 
