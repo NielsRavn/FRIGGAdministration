@@ -26,6 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
+        super("FRIGG administration");
         initComponents();
         setLayout(new BorderLayout());
         setSize(700,600);

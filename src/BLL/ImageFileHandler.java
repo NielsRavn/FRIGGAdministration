@@ -28,7 +28,6 @@ public class ImageFileHandler {
         String destDirectory = ConfFile.getInstance().getResourceFolderPath();
         String name = f.getName();
         File newLocation =  new File(destDirectory + name);
-        System.out.println("" + newLocation.getPath());
         FileHandler.copyFile(f, newLocation);
         return newLocation.getPath();
     }
