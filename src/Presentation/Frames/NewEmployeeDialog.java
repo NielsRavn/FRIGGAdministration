@@ -28,7 +28,7 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
      * Creates new form NewEmployeeDialog
      */
     public NewEmployeeDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super(parent, "Ny Medarbejder", modal);
         initComponents();
         tfId.addKeyListener(new myKeyListener());
         try {

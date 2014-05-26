@@ -10,8 +10,6 @@ import BE.MyImage;
 import BLL.ImageFileHandler;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
@@ -32,13 +30,13 @@ public class ImageEditorDialog extends javax.swing.JDialog {
      * @param modal if this frame should be modal.
      */
     public ImageEditorDialog(JFrame parent, boolean modal) {
-        super(parent, modal);
+        super(parent, "Vælg et billede", modal);
         this.parent = parent;
         initComponents();
         fileChooser = new JFileChooser();
         ifh = new ImageFileHandler();
-        setSize(700, 300);
         setLocationRelativeTo(parent); 
+        setSize(700, 300);
     }
 
     /**

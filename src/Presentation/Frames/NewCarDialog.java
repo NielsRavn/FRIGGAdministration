@@ -28,7 +28,7 @@ public class NewCarDialog extends javax.swing.JDialog {
      * Creates new form NewEmployeeDialog
      */
     public NewCarDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super(parent, "Ny bils", modal);
         initComponents();
         tfId.addKeyListener(new myKeyListener());
         try {
