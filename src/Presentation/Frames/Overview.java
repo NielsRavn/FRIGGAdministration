@@ -64,10 +64,13 @@ public class Overview extends javax.swing.JPanel {
             Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
         page2.add(sul, BorderLayout.CENTER);
+        
         ListSelectionModel lsm = tblAlarm.getSelectionModel();
+        lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblAlarm.getTableHeader().setReorderingAllowed(false);
         lsm.addListSelectionListener(new myTableSelectionListener());
         search();
+        
         validate();
 
         repaint();

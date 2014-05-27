@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 
 /**
@@ -36,6 +37,8 @@ public class MessagePanel extends javax.swing.JPanel {
         tblMessages.setModel(mtm);
         TableColumn tc = tblMessages.getColumnModel().getColumn(1);
         tc.setMaxWidth(100);
+        ListSelectionModel lsm = tblMessages.getSelectionModel();
+        lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         search();
     }
 

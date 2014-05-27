@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -59,6 +60,8 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         tblCar.setModel(ctm);
         tblCar.setRowSorter(rowSorter);
         tblCar.setDefaultEditor(ImageIcon.class, new ImageEditor(parent));
+        ListSelectionModel lsm = tblCar.getSelectionModel();
+        lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         search();
         addKeyListeners();
         addCellRenderes();

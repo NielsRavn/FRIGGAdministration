@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -49,6 +50,8 @@ public class ShowUpList extends javax.swing.JPanel {
         tableFiremanByCar = new TableModelFiremanByCar();
         tblShowUpOnCar.setModel(tableFiremanByCar);
         tblShowUpOnCar.getTableHeader().setReorderingAllowed(false);
+        ListSelectionModel lsm = tblShowUpOnCar.getSelectionModel();
+        lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
