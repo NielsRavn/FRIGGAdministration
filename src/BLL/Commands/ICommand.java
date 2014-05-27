@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public interface ICommand {
     
-    public void excecute() throws SQLException;
+    public void execute() throws SQLException;
     
     public void revoke() throws SQLException;
     

@@ -20,16 +20,29 @@ public class CarCreateCommand implements ICommand{
     Car car;
     Car_Access cal;
     
+    /**
+     * creates a new create car command 
+     * @param car the car to be created
+     * @throws IOException 
+     */
     public CarCreateCommand(Car car) throws IOException{
         cal = new Car_Access();
         this.car = car;
     }
     
+    /**
+     * creates the car in the database effectivly going forward
+     * @throws SQLException 
+     */
     @Override
-    public void excecute() throws SQLException {
+    public void execute() throws SQLException {
         cal.createNewCar(car);
     }
 
+    /**
+     * deletes the car from the database effectivly going backwards.
+     * @throws SQLException 
+     */
     @Override
     public void revoke() throws SQLException {
         cal.deleteCar(car);
