@@ -166,6 +166,7 @@ public class ShowUpList extends javax.swing.JPanel {
                 try {
                     employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, ((int) cbxCar.getSelectedItem()));
                 } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
             } else if (cbxCar.getSelectedItem() != null) {
                 try {
@@ -175,15 +176,12 @@ public class ShowUpList extends javax.swing.JPanel {
                 }
             }
             tableFiremanByCar.setTimeSheets(employees);
-
         }
-
     }
 
     public void clearTimeSheet() {
         tableFiremanByCar.clearTimeSheet();
         cbxCar.removeAllItems();
-        
-    }
 
+    }
 }

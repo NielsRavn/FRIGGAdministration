@@ -86,7 +86,7 @@ Alarm_AccessLink aal;
             case 5:
                 boolean accepted = (boolean) aValue;
                 if (accepted) {
-                    int pickedOption = JOptionPane.showConfirmDialog(null, "Dette vil fejerne muligheden for flere at tjekke sig på pågældende alarm", "Er du sikker?!", JOptionPane.OK_CANCEL_OPTION) ;
+                    int pickedOption = JOptionPane.showConfirmDialog(null, "Dette vil fjerne muligheden for flere at tjekke sig på pågældende alarm", "Er du sikker?!", JOptionPane.OK_CANCEL_OPTION) ;
                     if( pickedOption == 0){
                         a.setAccepted(accepted);
                         a.setChange(true);
