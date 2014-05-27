@@ -18,6 +18,7 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
 import javax.swing.table.TableRowSorter;
 
@@ -49,6 +50,8 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
         rowSorter = new TableRowSorter<>(eatm);
         tblEmployee.setModel(eatm);
         tblEmployee.setRowSorter(rowSorter);
+        ListSelectionModel lsm = tblEmployee.getSelectionModel();
+        lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         search();
         addKeyListeners();
     }
