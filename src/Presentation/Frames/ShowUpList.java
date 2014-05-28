@@ -130,6 +130,10 @@ public class ShowUpList extends javax.swing.JPanel {
     private javax.swing.JTable tblShowUpOnCar;
     // End of variables declaration//GEN-END:variables
 
+    /*
+    * when the Alarm in Overview is changed the 
+    * combobox is filled with the new date
+    */
     void SelectionChanged(Alarm alarm) throws SQLException {
         clearTimeSheet();
 
@@ -144,7 +148,9 @@ public class ShowUpList extends javax.swing.JPanel {
             }
         }
     }
-
+/*
+    * Saves the rows which has changes
+    */
     private void saveChangedRows() {
         ArrayList<TimeSheet> changes = tableFiremanByCar.getTimeSheets();
         for (TimeSheet t : changes) {
@@ -158,6 +164,10 @@ public class ShowUpList extends javax.swing.JPanel {
         }
     }
 
+    /*
+    * Listen to when the selection in the combobox is changed
+    * and gets the selected content and displays it in the Table
+    */
     private class myComboBoxSelectionListener implements ActionListener {
 
         ArrayList<TimeSheet> employees;
@@ -182,6 +192,9 @@ public class ShowUpList extends javax.swing.JPanel {
         }
     }
 
+    /*
+    * clears all items from the Table and Checkbox
+    */
     public void clearTimeSheet() {
         tableFiremanByCar.clearTimeSheet();
         cbxCar.removeAllItems();

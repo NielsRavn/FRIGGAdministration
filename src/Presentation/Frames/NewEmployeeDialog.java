@@ -113,6 +113,9 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
 
+    /*
+    *creats new Employee ID
+    */
     public void createNewEmployee(){
         int id = Integer.parseInt(tfId.getText());
         employee = new Employee(id);

@@ -52,29 +52,31 @@ public class Overview extends javax.swing.JPanel {
         dateChooser.setCalendarPreferredSize(new Dimension(500, 500));
         dateChooser.setBehavior(MultyModelBehavior.SELECT_PERIOD);
         dateChooser.addSelectionChangedListener(new SelectionChangedListener() {
+
             @Override
             public void onSelectionChange(SelectionChangedEvent sce) {
                 search();
             }
         });
+        
         jPanel3.add(dateChooser);
+        
         try {
             aal = new Alarm_AccessLink();
         } catch (IOException ex) {
             Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
         page2.add(sul, BorderLayout.CENTER);
-        
+
         ListSelectionModel lsm = tblAlarm.getSelectionModel();
         lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblAlarm.getTableHeader().setReorderingAllowed(false);
         lsm.addListSelectionListener(new myTableSelectionListener());
         search();
-        
+
         validate();
 
         repaint();
-
     }
 
     /**
@@ -174,8 +176,11 @@ public class Overview extends javax.swing.JPanel {
     private javax.swing.JTable tblAlarm;
     // End of variables declaration//GEN-END:variables
 
+    /*
+    * performs the search and listes the items into the AlarmTable
+    */
     private void search() {
-        
+
         Boolean approved = chbxApproved.isSelected();
         Iterable<Period> dates = dateChooser.getSelection();
         ArrayList<Alarm> alarms = new ArrayList<>();
@@ -193,18 +198,20 @@ public class Overview extends javax.swing.JPanel {
 
     private class myTableSelectionListener implements ListSelectionListener {
 
+        /*
+        * saves the row chages that are made.
+        */
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int selectedRow = tblAlarm.getSelectedRow();
             if (selectedRow != -1) {
                 try {
                     sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));
-                    
+
                 } catch (SQLException ex) {
                     Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-
     }
 }

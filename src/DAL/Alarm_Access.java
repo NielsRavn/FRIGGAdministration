@@ -31,6 +31,9 @@ public class Alarm_Access extends DatabaseConnection {
         return alarm;
     }
 
+    /*
+     * returns alarm picked by date(s) and if its approved
+     */
     public ArrayList<Alarm> getAlarmsByPeriodAndAccepted(Period p, Boolean approved) throws SQLException {
         ArrayList<Alarm> result = new ArrayList<>();
         String start = "" + p.getStartDate().get(Calendar.YEAR) + "-" + (p.getStartDate().get(Calendar.MONTH) + 1) + "-" + p.getStartDate().get(Calendar.DAY_OF_MONTH);
@@ -62,6 +65,9 @@ public class Alarm_Access extends DatabaseConnection {
         }
         return result;
     }
+    /*
+     * returns CarNr 
+     */
 
     public ArrayList<Integer> getCarNrByAlarmID(int ID) throws SQLException {
         ArrayList<Integer> result = new ArrayList<>();
@@ -86,6 +92,9 @@ public class Alarm_Access extends DatabaseConnection {
         return result;
     }
 
+    /*
+     * updates the accepted status on an alarm
+     */
     public void updateAlarm(Alarm a) throws SQLException {
         Connection con = null;
         ResultSet rs = null;
@@ -102,5 +111,4 @@ public class Alarm_Access extends DatabaseConnection {
             }
         }
     }
-
 }

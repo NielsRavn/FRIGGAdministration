@@ -23,7 +23,9 @@ public class Employee_Access extends DatabaseConnection{
     public Employee_Access() throws IOException{
         super();
     }
-
+ /*
+    * returns firemen by String query
+    */
     public ArrayList<Employee> getEmployeesBySearchQuery(String query) throws SQLException {
         ArrayList<Employee> employees = new ArrayList<>();
         Connection con = null;
@@ -55,6 +57,9 @@ public class Employee_Access extends DatabaseConnection{
         return employees;
     }
 
+    /*
+    * updates Employee
+    */
     public void updateEmployee(Employee e) throws SQLException {
         Connection con = null;
         
@@ -80,6 +85,9 @@ public class Employee_Access extends DatabaseConnection{
         }
     }
 
+    /*
+    * Creates a new Employee
+    */
     public void createNewEmployee(Employee e) throws SQLException {
         Connection con = null;
         
@@ -105,6 +113,9 @@ public class Employee_Access extends DatabaseConnection{
         }
     }
 
+    /*
+    * Deletes Employees
+    */
     public void deleteEmployee(Employee e) throws SQLException {
         Connection con = null;
         
@@ -115,7 +126,7 @@ public class Employee_Access extends DatabaseConnection{
             int affectedRows = stmnt.executeUpdate("DELETE FROM Fireman WHERE employeeId = " + e.getEmplyeeId() + ";");
             
             if(affectedRows == 0){
-                throw new SQLException("employee was not deleted or was not in the database, no rows affected");
+                throw new SQLException("employee was not deleted or was not in the database, no changes are made");
             }
             
         }finally {
@@ -125,6 +136,9 @@ public class Employee_Access extends DatabaseConnection{
         }
     }
 
+    /*
+    * checks if the employee ID exists
+    */
     public boolean checkNewEmployeeId(int id) throws SQLException {
         Connection con = null;
         

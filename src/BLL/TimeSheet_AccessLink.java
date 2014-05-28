@@ -29,7 +29,7 @@ public class TimeSheet_AccessLink {
     }
 
     public void updateTimesheet(TimeSheet t) throws SQLException {
-        tsa.updateTimesheet(t);    }
+        tsa.updateApprovalSheet(t);    }
 
 
 }

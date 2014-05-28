@@ -24,6 +24,9 @@ public class TimeSheet_Access extends DatabaseConnection {
 
     }
 
+    /*
+    * with the information about int alarmID and int carNr the relevate timeSheets are returned
+    */
     public ArrayList<TimeSheet> getTimeSheetByCarNrAndAlarmID(int alarmID, int carNr) throws SQLException {
         ArrayList<TimeSheet> result = new ArrayList<>();
         Connection con = null;
@@ -89,7 +92,10 @@ public class TimeSheet_Access extends DatabaseConnection {
         return result;
     }
 
-    public void updateTimesheet(TimeSheet t) throws SQLException {
+    /*
+    * updates the chosen approvalSheet
+    */
+    public void updateApprovalSheet(TimeSheet t) throws SQLException {
         Connection con = null;
         ResultSet rs = null;
         try {
@@ -111,5 +117,4 @@ public class TimeSheet_Access extends DatabaseConnection {
             if(con != null) con.close();
         }
     }
-
 }
