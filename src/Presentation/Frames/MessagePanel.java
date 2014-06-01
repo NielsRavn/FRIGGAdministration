@@ -107,7 +107,6 @@ public class MessagePanel extends javax.swing.JPanel {
         createNewMessage();
     }//GEN-LAST:event_btnNewMessageActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewMessage;
     private javax.swing.JCheckBox cbVisArkiverede;
@@ -131,7 +130,8 @@ public class MessagePanel extends javax.swing.JPanel {
     }
 
     /**
-     * creates a new message in the database and searches again to get the new one into the table.
+     * creates a new message in the database and searches again to get the new
+     * one into the table.
      */
     private void createNewMessage() {
         try {

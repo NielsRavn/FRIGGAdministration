@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BLL.Commands;
 
 import java.sql.SQLException;
@@ -13,17 +12,19 @@ import java.sql.SQLException;
  * @author Niels
  */
 public interface ICommand {
-    
+
     /**
      * the command to be executed in the command when going forward
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     public void execute() throws SQLException;
-    
+
     /**
      * the command to be executed in the command stack when going backwards.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     public void revoke() throws SQLException;
-    
+
 }

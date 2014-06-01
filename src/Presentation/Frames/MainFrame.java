@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
 import Presentation.Components.TabView;
 import Presentation.MyConstants;
 import java.awt.BorderLayout;
 import javax.swing.UIManager;
-/** 
+
+/**
  *
  * @author Niels
  */
 public class MainFrame extends javax.swing.JFrame {
-    
+
     Overview ov;
     AdministrationPanel ap;
     MessagePanel mp;
@@ -29,19 +29,19 @@ public class MainFrame extends javax.swing.JFrame {
         super("FRIGG administration");
         initComponents();
         setLayout(new BorderLayout());
-        setSize(700,600);
+        setSize(700, 600);
         setResizable(false);
-        
+
         tv = new TabView();
         ov = new Overview();
         ap = new AdministrationPanel(this);
         mp = new MessagePanel();
         head = new Header();
-        
+
         tv.addNewTab("Overblik", ov);
         tv.addNewTab("Administration", ap);
         tv.addNewTab("Beskeder", mp);
-        
+
         add(head, BorderLayout.NORTH);
         add(tv, BorderLayout.CENTER);
     }
@@ -100,7 +100,6 @@ public class MainFrame extends javax.swing.JFrame {
 
 //        UIManager.put("TabbedPane.tabAreaBackground",
 //                MyConstants.COLOR_BLUE);
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

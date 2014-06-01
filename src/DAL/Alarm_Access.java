@@ -28,10 +28,11 @@ public class Alarm_Access extends DatabaseConnection {
 
     /**
      * returns alarm picked by date(s) and if its approved
+     *
      * @param p the period object of the date picker
      * @param approved whether or not the alarms may be approved
      * @return an array of alarms.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<Alarm> getAlarmsByPeriodAndAccepted(Period p, Boolean approved) throws SQLException {
         ArrayList<Alarm> result = new ArrayList<>();
@@ -64,12 +65,13 @@ public class Alarm_Access extends DatabaseConnection {
         }
         return result;
     }
-    
+
     /**
      * aget an array of car numbers that has been on an alarm.
+     *
      * @param ID the id to search for
      * @return an array of integers representing the car numbers.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<Integer> getCarNrByAlarmID(int ID) throws SQLException {
         ArrayList<Integer> result = new ArrayList<>();
@@ -96,8 +98,9 @@ public class Alarm_Access extends DatabaseConnection {
 
     /**
      * updates the accepted status of an alarm
+     *
      * @param a the alarm, to get the id and accepted status from.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateAlarm(Alarm a) throws SQLException {
         Connection con = null;

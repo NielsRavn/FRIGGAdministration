@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BLL;
 
 import BE.Message;
@@ -17,21 +16,21 @@ import java.util.ArrayList;
  * @author Niels Kristian Ravn
  */
 public class Message_AccessLink {
-    
+
     Message_Access ma;
-    
-    
-    public Message_AccessLink() throws IOException{
+
+    public Message_AccessLink() throws IOException {
         ma = new Message_Access();
     }
 
     /**
-     * gets ethier archived or unarchived messages, the archived status
-     * is the oposit of the shown value that is saved in the database.
-     * @param archived whether to get archived or un archived messages, 
-     * false to get messages that are shown in the check out program.
+     * gets ethier archived or unarchived messages, the archived status is the
+     * oposit of the shown value that is saved in the database.
+     *
+     * @param archived whether to get archived or un archived messages, false to
+     * get messages that are shown in the check out program.
      * @return an arraylist of messages.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<Message> getMessagesByArchivedStatus(boolean archived) throws SQLException {
         return ma.getMessagesByArchivedStatus(archived);
@@ -39,7 +38,8 @@ public class Message_AccessLink {
 
     /**
      * creates a new message to then be loaded from the database.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     public void createNewMessage() throws SQLException {
         ma.createNewMessage();
@@ -47,8 +47,9 @@ public class Message_AccessLink {
 
     /**
      * updates all fields of a message
+     *
      * @param m the message to update.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateMessage(Message m) throws SQLException {
         ma.updateMessage(m);

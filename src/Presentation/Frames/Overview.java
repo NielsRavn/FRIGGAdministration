@@ -58,9 +58,9 @@ public class Overview extends javax.swing.JPanel {
                 search();
             }
         });
-        
+
         jPanel3.add(dateChooser);
-        
+
         try {
             aal = new Alarm_AccessLink();
         } catch (IOException ex) {
@@ -160,7 +160,6 @@ public class Overview extends javax.swing.JPanel {
         search();
     }//GEN-LAST:event_chbxApprovedActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alarmInfo;
     private javax.swing.JCheckBox chbxApproved;
@@ -177,8 +176,8 @@ public class Overview extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     /*
-    * performs the search and listes the items into the AlarmTable
-    */
+     * performs the search and listes the items into the AlarmTable
+     */
     private void search() {
 
         Boolean approved = chbxApproved.isSelected();
@@ -199,8 +198,8 @@ public class Overview extends javax.swing.JPanel {
     private class myTableSelectionListener implements ListSelectionListener {
 
         /*
-        * saves the row chages that are made.
-        */
+         * saves the row chages that are made.
+         */
         @Override
         public void valueChanged(ListSelectionEvent e) {
             int selectedRow = tblAlarm.getSelectedRow();

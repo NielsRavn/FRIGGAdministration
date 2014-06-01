@@ -28,6 +28,7 @@ public class TimeSheet {
 
     /**
      * creates a new timsheet with all data
+     *
      * @param timeSheetID the id of the timesheet
      * @param firemanID the id of the employee in the timesheet
      * @param firstName the firstname of the employee
@@ -35,9 +36,11 @@ public class TimeSheet {
      * @param startTime the start time and date of this time registration
      * @param endTime the end time and date of this time registration.
      * @param hours how many hours the teamlader has approved.
-     * @param approvedByTeamleader the id for the teamleader who approved this time sheet
+     * @param approvedByTeamleader the id for the teamleader who approved this
+     * time sheet
      * @param hoursApproved how many hours inputted by the comander
-     * @param approvedByCoomander whether or not the commander approved the hours
+     * @param approvedByCoomander whether or not the commander approved the
+     * hours
      * @param position the position that the employee was filling.
      */
     public TimeSheet(int timeSheetID, int firemanID, String firstName, String lastName, Timestamp startTime, Timestamp endTime, int hours, int approvedByTeamleader, int hoursApproved, boolean approvedByCoomander, String position) {
@@ -132,7 +135,8 @@ public class TimeSheet {
     }
 
     /**
-     * @param approvedByTeamleader the new teamleder id to be set for who approved the teamleader hours.
+     * @param approvedByTeamleader the new teamleder id to be set for who
+     * approved the teamleader hours.
      */
     public void setApprovedByTeamleader(int approvedByTeamleader) {
         this.approvedByTeamleader = approvedByTeamleader;
@@ -153,7 +157,8 @@ public class TimeSheet {
     }
 
     /**
-     * @param startTime the new start time and date to be set for this timesheet.
+     * @param startTime the new start time and date to be set for this
+     * timesheet.
      */
     public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
@@ -173,7 +178,6 @@ public class TimeSheet {
         this.firstName = firstName;
     }
 
-    
     /**
      * @param ID the new employee id to be set.
      */
@@ -182,7 +186,8 @@ public class TimeSheet {
     }
 
     /**
-     * @param approvedByCommander whether or nor it is approved by the commander, if true it will be sent on to salary.
+     * @param approvedByCommander whether or nor it is approved by the
+     * commander, if true it will be sent on to salary.
      */
     public void setApprovedByCommander(boolean approvedByCommander) {
         this.approvedByCommander = approvedByCommander;
@@ -196,8 +201,8 @@ public class TimeSheet {
     }
 
     /**
-     * @return whether or not a change has happened in this timesheet
-     * used to determine if it should get updated in the database
+     * @return whether or not a change has happened in this timesheet used to
+     * determine if it should get updated in the database
      */
     public boolean isChange() {
         return change;

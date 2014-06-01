@@ -163,7 +163,6 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
         search();
     }//GEN-LAST:event_tfSearchKeyReleased
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBackwards;
     private javax.swing.JButton btnForward;
@@ -179,8 +178,8 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * uses the search query text to search for data in the database,
-     * and sets the data in the table, plus updates the back and fourth buttons.
+     * uses the search query text to search for data in the database, and sets
+     * the data in the table, plus updates the back and fourth buttons.
      */
     public void search() {
         String query = tfSearch.getText();
@@ -194,9 +193,9 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     }
 
     /**
-     * creates a new dialog to ask for the ID of a new employee to be made.
-     * if the return of the dialog is not null, a command to create teh new employee
-     * is created and executed.
+     * creates a new dialog to ask for the ID of a new employee to be made. if
+     * the return of the dialog is not null, a command to create teh new
+     * employee is created and executed.
      */
     private void newEmployee() {
         NewEmployeeDialog ned = new NewEmployeeDialog(parent, true);
@@ -227,8 +226,8 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     }
 
     /**
-     * sets the enabled status of the back and forward buttons so that they are only active
-     * when they can be used.
+     * sets the enabled status of the back and forward buttons so that they are
+     * only active when they can be used.
      */
     public void setButtonsEnabled() {
         btnForward.setEnabled(commandStack.canGoForward());
@@ -236,7 +235,8 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     }
 
     /**
-     * goes forward in the command stack, redoing the action that has previosly been undone. 
+     * goes forward in the command stack, redoing the action that has previosly
+     * been undone.
      */
     private void forward() {
         if (commandStack.canGoForward()) {
@@ -250,8 +250,8 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
     }
 
     /**
-     * adds keylistener to just about every focus able object,
-     * so that ctrl-z and ctrl-y always can be used to go back and forward.
+     * adds keylistener to just about every focus able object, so that ctrl-z
+     * and ctrl-y always can be used to go back and forward.
      */
     private void addKeyListeners() {
         MyUndoAndRedoKeyListener urk = new MyUndoAndRedoKeyListener();

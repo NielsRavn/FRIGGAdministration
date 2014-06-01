@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
 import Presentation.MyConstants;
@@ -43,8 +42,6 @@ public class Header extends javax.swing.JPanel {
         add(lblLogo, java.awt.BorderLayout.WEST);
         add(lblUser, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblLogo;

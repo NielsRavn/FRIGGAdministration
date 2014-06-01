@@ -23,7 +23,7 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
 
     Employee employee;
     Employee_AccessLink eal;
-    
+
     /**
      * Creates new form NewEmployeeDialog
      */
@@ -34,7 +34,8 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
         try {
             eal = new Employee_AccessLink();
             employee = null;
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
         setLocationRelativeTo(parent);
         setVisible(true);
     }
@@ -102,7 +103,6 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnMedarbejder;
@@ -114,19 +114,19 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * checks if the new employee id exists in the database, 
-     * if not it will set the employee of this to a new employee with the inputted id and dispose.
+     * checks if the new employee id exists in the database, if not it will set
+     * the employee of this to a new employee with the inputted id and dispose.
      */
-    public void createNewEmployee(){
+    public void createNewEmployee() {
         int id = Integer.parseInt(tfId.getText());
         employee = new Employee(id);
         try {
-            if(eal.checkNewEmployeeId(id)){
+            if (eal.checkNewEmployeeId(id)) {
                 dispose();
-            }else{
+            } else {
                 employee = null;
-               JOptionPane.showMessageDialog(rootPane, "Id'et er allerede brugt"); 
-            } 
+                JOptionPane.showMessageDialog(rootPane, "Id'et er allerede brugt");
+            }
         } catch (SQLException ex) {
             employee = null;
             ex.printStackTrace();
@@ -134,14 +134,16 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
     }
 
     /**
-     * @return the employee set in this object, if null no new employee should be created.
+     * @return the employee set in this object, if null no new employee should
+     * be created.
      */
     public Employee getEmployee() {
         return employee;
     }
-    
+
     /**
-     * keylistener to listen for enter key, and consume inputs that are not numbers.
+     * keylistener to listen for enter key, and consume inputs that are not
+     * numbers.
      */
     private class myKeyListener extends KeyAdapter {
 
