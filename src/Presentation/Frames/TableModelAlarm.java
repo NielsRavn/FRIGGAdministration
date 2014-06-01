@@ -19,17 +19,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class TableModelAlarm extends AbstractTableModel {
-Alarm_AccessLink aal;
+
+    Alarm_AccessLink aal;
     ArrayList<Alarm> alarmList;
     String[] colNames = {"Destination", "Tidspunkt", "Melding", "Øvelse", "OdinNr.", "Godkendt"};
     Class[] classes = {String.class, String.class, String.class, Boolean.class, Integer.class, Boolean.class};
 
     public TableModelAlarm(ArrayList<Alarm> alarmList) {
-    try {
-        aal = new Alarm_AccessLink();
-    } catch (IOException ex) {
-        Logger.getLogger(TableModelAlarm.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            aal = new Alarm_AccessLink();
+        } catch (IOException ex) {
+            Logger.getLogger(TableModelAlarm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.alarmList = alarmList;
         fireTableDataChanged();
     }
@@ -81,18 +82,17 @@ Alarm_AccessLink aal;
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         Alarm a = alarmList.get(rowIndex);
-        
+
         switch (columnIndex) {
             case 5:
                 boolean accepted = (boolean) aValue;
                 if (accepted) {
-                    int pickedOption = JOptionPane.showConfirmDialog(null, "Dette vil fjerne muligheden for flere at tjekke sig på pågældende alarm", "Er du sikker?!", JOptionPane.OK_CANCEL_OPTION) ;
-                    if( pickedOption == 0){
+                    int pickedOption = JOptionPane.showConfirmDialog(null, "Dette vil fjerne muligheden for flere at tjekke sig på pågældende alarm", "Er du sikker?!", JOptionPane.OK_CANCEL_OPTION);
+                    if (pickedOption == 0) {
                         a.setAccepted(accepted);
                         a.setChange(true);
                     }
-                }
-                else {
+                } else {
                     a.setAccepted(accepted);
                     a.setChange(true);
                 }
@@ -101,7 +101,7 @@ Alarm_AccessLink aal;
         }
     }
 
-        private void saveChangedRows() {
+    private void saveChangedRows() {
         ArrayList<Alarm> changes = alarmList;
         for (Alarm a : changes) {
             if (a.isChange()) {

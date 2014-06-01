@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
 import BE.Message;
@@ -19,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Niels Kristian Ravn
  */
-public class MessageTableModel extends AbstractTableModel{
+public class MessageTableModel extends AbstractTableModel {
 
     ArrayList<Message> messages;
     //the column names to be displayed above the column
@@ -39,16 +38,19 @@ public class MessageTableModel extends AbstractTableModel{
     }
 
     /**
-     * creates a new model for a table, with the parent, to make it search again when somthing is changed.
+     * creates a new model for a table, with the parent, to make it search again
+     * when somthing is changed.
+     *
      * @param parent the parent message panel.
      */
     public MessageTableModel(MessagePanel parent) {
         this(new ArrayList<Message>());
         this.parent = parent;
     }
-    
+
     /**
      * gets the number of rows to be created
+     *
      * @return the number of rows in the table
      */
     @Override
@@ -57,7 +59,7 @@ public class MessageTableModel extends AbstractTableModel{
     }
 
     /**
-     * 
+     *
      * @return the number of coulms to be shown
      */
     @Override
@@ -67,6 +69,7 @@ public class MessageTableModel extends AbstractTableModel{
 
     /**
      * returns the value in a specific cell
+     *
      * @param rowIndex the row of the cell
      * @param columnIndex the column of the cell
      * @return the value in the cell
@@ -74,7 +77,7 @@ public class MessageTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Message m = messages.get(rowIndex);
-        switch (columnIndex){
+        switch (columnIndex) {
             case 0:
                 return m.getMessage();
             case 1:
@@ -83,8 +86,9 @@ public class MessageTableModel extends AbstractTableModel{
         return null;
     }
 
-     /**
+    /**
      * sets the value of a specific cell, also updates the database
+     *
      * @param aValue the value to set in
      * @param rowIndex the row of the cell
      * @param columnIndex the column that the cell is in.
@@ -92,9 +96,9 @@ public class MessageTableModel extends AbstractTableModel{
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         Message m = messages.get(rowIndex);
-        switch (columnIndex){
+        switch (columnIndex) {
             case 0:
-                m.setMessage((String)aValue);
+                m.setMessage((String) aValue);
                 break;
             case 1:
                 m.setShown(!(boolean) aValue);
@@ -110,6 +114,7 @@ public class MessageTableModel extends AbstractTableModel{
 
     /**
      * tells wether or not a cell should be able to be eddited.
+     *
      * @param rowIndex the row of the cell
      * @param columnIndex the column of the cell
      * @return true if the cell can be edited and false otherwise.
@@ -121,6 +126,7 @@ public class MessageTableModel extends AbstractTableModel{
 
     /**
      * gets the class of the objects to be shown in a column
+     *
      * @param columnIndex the column to look in
      * @return the class that the values to be shown in the column goes under.
      */
@@ -131,6 +137,7 @@ public class MessageTableModel extends AbstractTableModel{
 
     /**
      * gets the column name to be shown over the columns
+     *
      * @param column the column to get the name for
      * @return the name of the column
      */
@@ -141,13 +148,12 @@ public class MessageTableModel extends AbstractTableModel{
 
     /**
      * sets the array of messages to be shown and updates the table.
+     *
      * @param messages an array to be shown in the table.
      */
     void setMessages(ArrayList<Message> messages) {
         this.messages = messages;
         fireTableDataChanged();
     }
-    
-    
-    
+
 }

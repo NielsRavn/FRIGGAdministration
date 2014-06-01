@@ -26,10 +26,11 @@ public class TimeSheet_Access extends DatabaseConnection {
 
     /**
      * gets all timesheets with the given alarm id and car nr.
+     *
      * @param alarmID the alarm id to search for
      * @param carNr the car number to search fro.
      * @return an arraylist of timesheets which meets the given requirements.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public ArrayList<TimeSheet> getTimeSheetByCarNrAndAlarmID(int alarmID, int carNr) throws SQLException {
         ArrayList<TimeSheet> result = new ArrayList<>();
@@ -97,11 +98,12 @@ public class TimeSheet_Access extends DatabaseConnection {
     }
 
     /**
-     * creates a new approval sheet for the timesheets with data from the 
+     * creates a new approval sheet for the timesheets with data from the
      * timesheet and adds it as the approval sheet for the timesheet
-     * @param t the timesheets which should have a new approval sheet made, 
-     * with approved hours, or approved by comander updated.
-     * @throws SQLException 
+     *
+     * @param t the timesheets which should have a new approval sheet made, with
+     * approved hours, or approved by comander updated.
+     * @throws SQLException
      */
     public void updateApprovalSheet(TimeSheet t) throws SQLException {
         Connection con = null;
@@ -119,10 +121,12 @@ public class TimeSheet_Access extends DatabaseConnection {
                 int affectedRowsTS = stmnt.executeUpdate("update TimeSheet\n"
                         + "set acceptedForSalary = " + approvalId + "\n"
                         + "where id = " + t.getTimeSheetID());
-                System.out.println("affectedRowsTS = " + affectedRowsTS +" " + t.getTimeSheetID() + " " + approvalId);
+                System.out.println("affectedRowsTS = " + affectedRowsTS + " " + t.getTimeSheetID() + " " + approvalId);
             }
         } finally {
-            if(con != null) con.close();
+            if (con != null) {
+                con.close();
+            }
         }
     }
 }

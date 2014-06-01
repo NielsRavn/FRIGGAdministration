@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Components;
 
 import BE.MyImage;
@@ -23,9 +22,10 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     JFileChooser fileChooser;
     JFrame parent;
     ImageFileHandler ifh;
-    
+
     /**
      * Creates new form ImageEditorDialog
+     *
      * @param parent the frame that this sits ontop, to make it modal.
      * @param modal if this frame should be modal.
      */
@@ -35,7 +35,7 @@ public class ImageEditorDialog extends javax.swing.JDialog {
         initComponents();
         fileChooser = new JFileChooser();
         ifh = new ImageFileHandler();
-        setLocationRelativeTo(parent); 
+        setLocationRelativeTo(parent);
         setSize(700, 300);
     }
 
@@ -124,7 +124,6 @@ public class ImageEditorDialog extends javax.swing.JDialog {
         setImageFromTextField();
     }//GEN-LAST:event_tfPathKeyReleased
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnBrowse;
@@ -138,6 +137,7 @@ public class ImageEditorDialog extends javax.swing.JDialog {
 
     /**
      * sets the image that is currently shown.
+     *
      * @param currentImage the image to be shown
      */
     public void setImage(MyImage currentImage) {
@@ -149,7 +149,7 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     }
 
     /**
-     * 
+     *
      * @return the image that is currently picked.
      */
     public MyImage getImage() {
@@ -170,22 +170,25 @@ public class ImageEditorDialog extends javax.swing.JDialog {
     private void chooseFile() {
         fileChooser.setCurrentDirectory(new File(image.getPath()));
         int result = fileChooser.showOpenDialog(parent);
-        
-        if(result == JFileChooser.APPROVE_OPTION){
+
+        if (result == JFileChooser.APPROVE_OPTION) {
             File f = fileChooser.getSelectedFile();
             setImage(new MyImage(f.getPath()));
         }
     }
 
     /**
-     * if there is a file chosen in the file choser it gets that, else it make one
-     * from the path in the MyImage. then it copies the file to the directory give
-     * in the config file and sets the image to the new image path.
+     * if there is a file chosen in the file choser it gets that, else it make
+     * one from the path in the MyImage. then it copies the file to the
+     * directory give in the config file and sets the image to the new image
+     * path.
      */
     private void approve() {
         File f = fileChooser.getSelectedFile();
-        if(f == null) f = new File(image.getPath());
-        String newPath = ""; 
+        if (f == null) {
+            f = new File(image.getPath());
+        }
+        String newPath = "";
         try {
             newPath = ifh.copyFileToDefaultDirectory(f);
         } catch (IOException ex) {

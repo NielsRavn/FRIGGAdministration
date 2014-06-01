@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Components;
 
 /* 
  * ColorEditor.java (compiles with releases 1.3 and 1.4) is used by 
  * TableDialogEditDemo.java.
  */
-
 import BE.MyImage;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -25,8 +23,9 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
 public class ImageEditor extends AbstractCellEditor
-                         implements TableCellEditor,
-			            ActionListener {
+        implements TableCellEditor,
+        ActionListener {
+
     MyImage currentImage;
     JButton button;
     ImageEditorDialog dialog;
@@ -34,10 +33,11 @@ public class ImageEditor extends AbstractCellEditor
 
     /**
      * creates a new imageEditor with a button to be put in to the table cell
+     *
      * @param parent the jframe, for giving the dialog.
      */
     public ImageEditor(JFrame parent) {
-        
+
         button = new JButton();
         button.setActionCommand(EDIT);
         button.addActionListener(this);
@@ -56,11 +56,11 @@ public class ImageEditor extends AbstractCellEditor
             dialog.setImage(currentImage);
             dialog.setVisible(true);
 
-            MyImage image = dialog.getImage(); 
-            if(image != null){
+            MyImage image = dialog.getImage();
+            if (image != null) {
                 currentImage = image;
             }
-            
+
             //Make the renderer reappear.
             fireEditingStopped();
 
@@ -69,6 +69,7 @@ public class ImageEditor extends AbstractCellEditor
 
     /**
      * called by the table when the editing stops.
+     *
      * @return the value saves as the current image.
      */
     @Override
@@ -77,14 +78,15 @@ public class ImageEditor extends AbstractCellEditor
     }
 
     /**
-     * method from cell editor, returns a button to be shown in the table when it is to be edited.
+     * method from cell editor, returns a button to be shown in the table when
+     * it is to be edited.
      */
     @Override
     public Component getTableCellEditorComponent(JTable table,
-                                                 Object value,
-                                                 boolean isSelected,
-                                                 int row,
-                                                 int column) {
+            Object value,
+            boolean isSelected,
+            int row,
+            int column) {
         currentImage = (MyImage) value;
         return button;
     }

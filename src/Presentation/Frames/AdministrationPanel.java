@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentation.Frames;
 
 import Presentation.Components.TabView;
@@ -20,20 +19,20 @@ public class AdministrationPanel extends javax.swing.JPanel {
     EmployeeAdministrationPanel eap;
     CarAdministrationPanel vap;
     JFrame parent;
-    
+
     /**
      * Creates new form AdministrationPanel
      */
     public AdministrationPanel(JFrame parent) {
         this.parent = parent;
         initComponents();
-        
+
         tv = new TabView();
         eap = new EmployeeAdministrationPanel(parent);
         vap = new CarAdministrationPanel(parent);
         tv.addNewTab("Medarbejder", eap);
         tv.addNewTab("Biler", vap);
-        
+
         add(tv, BorderLayout.CENTER);
     }
 
@@ -48,7 +47,6 @@ public class AdministrationPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

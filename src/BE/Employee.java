@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BE;
 
 /**
@@ -11,13 +10,14 @@ package BE;
  * @author Niels
  */
 public class Employee {
-    
+
     int emplyeeId;
     String firstName, lastName;
     boolean teamLeader, driver;
 
     /**
      * ceates a new employee with all info, for loading data from the database.
+     *
      * @param emplyeeId the id of the employee
      * @param firstName the first name of the employee
      * @param lastName the last name of the employee
@@ -33,8 +33,10 @@ public class Employee {
     }
 
     /**
-     * creates a new employee with the given employee id, everything else is set to an empty string and false.
-     * used for creating new employees in the database.
+     * creates a new employee with the given employee id, everything else is set
+     * to an empty string and false. used for creating new employees in the
+     * database.
+     *
      * @param emplyeeId the employee id of the employee
      */
     public Employee(int emplyeeId) {
@@ -95,7 +97,8 @@ public class Employee {
     }
 
     /**
-     * @param teamLeader the new teamleader status to set, if true this employee can be a teamleader.
+     * @param teamLeader the new teamleader status to set, if true this employee
+     * can be a teamleader.
      */
     public void setTeamLeader(boolean teamLeader) {
         this.teamLeader = teamLeader;
@@ -109,18 +112,19 @@ public class Employee {
     }
 
     /**
-     * @param driver the new driver value to set, if true this employee can be a driver.
+     * @param driver the new driver value to set, if true this employee can be a
+     * driver.
      */
     public void setDriver(boolean driver) {
         this.driver = driver;
     }
-    
+
     /**
      * @return a new employee with the same data as this one
      */
-    public Employee getCopyOfEmployee(){
+    public Employee getCopyOfEmployee() {
         Employee e = new Employee(emplyeeId, firstName, lastName, teamLeader, driver);
         return e;
     }
-    
+
 }

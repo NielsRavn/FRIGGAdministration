@@ -138,14 +138,16 @@ public class Alarm {
     }
 
     /**
-     * @param change sets the changed value, when commiting to the dtabase this is used to see if anything was changed.
+     * @param change sets the changed value, when commiting to the dtabase this
+     * is used to see if anything was changed.
      */
     public void setChange(boolean change) {
         this.change = change;
     }
 
     /**
-     * @return true if there is changes that should be commited to the database false otherwise.
+     * @return true if there is changes that should be commited to the database
+     * false otherwise.
      */
     public boolean isChange() {
         return change;

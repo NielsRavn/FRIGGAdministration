@@ -23,7 +23,7 @@ public class NewCarDialog extends javax.swing.JDialog {
 
     Car car;
     Car_AccessLink cal;
-    
+
     /**
      * Creates new form NewEmployeeDialog
      */
@@ -34,7 +34,8 @@ public class NewCarDialog extends javax.swing.JDialog {
         try {
             cal = new Car_AccessLink();
             car = null;
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
         setLocationRelativeTo(parent);
         setVisible(true);
     }
@@ -102,7 +103,6 @@ public class NewCarDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnMedarbejder;
@@ -114,21 +114,21 @@ public class NewCarDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * checks if the new car number exists in the database, 
-     * if not it will set the car of this to a ne car with the inputted number and dispose.
+     * checks if the new car number exists in the database, if not it will set
+     * the car of this to a ne car with the inputted number and dispose.
      */
-    public void createNewCar(){
+    public void createNewCar() {
         int carNr = Integer.parseInt(tfId.getText());
         car = new Car(carNr);
         try {
-            if(cal.checkNewCarNr(carNr)){
+            if (cal.checkNewCarNr(carNr)) {
                 dispose();
-            }else{
+            } else {
                 car = null;
-               JOptionPane.showMessageDialog(rootPane, "Bilnumeret er allerede brugt"); 
-            } 
+                JOptionPane.showMessageDialog(rootPane, "Bilnumeret er allerede brugt");
+            }
         } catch (SQLException ex) {
-            car = null; 
+            car = null;
             ex.printStackTrace();
         }
     }
@@ -139,9 +139,10 @@ public class NewCarDialog extends javax.swing.JDialog {
     public Car getCar() {
         return car;
     }
-    
+
     /**
-     * keylistener to listen for enter key, and consume inputs that are not numbers.
+     * keylistener to listen for enter key, and consume inputs that are not
+     * numbers.
      */
     private class myKeyListener extends KeyAdapter {
 

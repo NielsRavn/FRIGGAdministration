@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BE;
 
 /**
@@ -11,13 +10,15 @@ package BE;
  * @author Niels Kristian Ravn
  */
 public class Message {
-    
+
     private int id;
     private String message;
     private boolean shown;
 
     /**
-     * creates a new message with all data, used when getting data from the database.
+     * creates a new message with all data, used when getting data from the
+     * database.
+     *
      * @param id the id of the message
      * @param message the message
      * @param shown if the message should be shown or not.
@@ -29,7 +30,9 @@ public class Message {
     }
 
     /**
-     * creates a new message from message and shown value, used when creating new messages.
+     * creates a new message from message and shown value, used when creating
+     * new messages.
+     *
      * @param message the message to be shown
      * @param shown whether or not it should be shown.
      */
@@ -67,7 +70,8 @@ public class Message {
     }
 
     /**
-     * @return whether or nor the message should be shown. when true it is visible.
+     * @return whether or nor the message should be shown. when true it is
+     * visible.
      */
     public boolean isShown() {
         return shown;
@@ -79,6 +83,5 @@ public class Message {
     public void setShown(boolean shown) {
         this.shown = shown;
     }
-    
-    
+
 }

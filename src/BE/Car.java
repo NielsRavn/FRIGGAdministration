@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BE;
 
 import javax.swing.ImageIcon;
@@ -13,7 +12,7 @@ import javax.swing.ImageIcon;
  * @author Niels Kristian Ravn
  */
 public class Car {
-    
+
     int carNr;
     MyImage image;
     String name;
@@ -21,6 +20,7 @@ public class Car {
 
     /**
      * creates a new car with the given elemets.
+     *
      * @param carNr the car nr
      * @param iconPath the path where the picture is
      * @param name the name of the car
@@ -34,7 +34,9 @@ public class Car {
     }
 
     /**
-     * creates a new car with only a car nr, the rest will be set to a database save able state
+     * creates a new car with only a car nr, the rest will be set to a database
+     * save able state
+     *
      * @param carNr the car nr of the car.
      */
     public Car(int carNr) {
@@ -87,7 +89,8 @@ public class Car {
     }
 
     /**
-     * @return the Myimage object of this car, which contains both image and image path.
+     * @return the Myimage object of this car, which contains both image and
+     * image path.
      */
     public MyImage getImage() {
         return image;
@@ -99,14 +102,15 @@ public class Car {
     public void setImage(MyImage image) {
         this.image = image;
     }
-    
+
     /**
      * creates a copy of this car object
+     *
      * @return a new car object with same values as this one.
      */
-    public Car getCopyOfCar(){
+    public Car getCopyOfCar() {
         Car c = new Car(carNr, image.getPath(), name, seats);
         return c;
     }
-    
+
 }

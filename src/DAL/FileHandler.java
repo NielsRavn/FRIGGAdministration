@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package DAL;
 
 import java.io.BufferedInputStream;
@@ -18,36 +17,38 @@ import java.io.IOException;
  * @author Niels Kristian Ravn
  */
 public class FileHandler {
-    
+
     /**
      * copies a file from one location to another
+     *
      * @param oldLocation the file to be copied
-     * @param newLocation a file representing the new location, full with file type for example .jpg.
-     * @throws IOException 
+     * @param newLocation a file representing the new location, full with file
+     * type for example .jpg.
+     * @throws IOException
      */
     public static void copyFile(File oldLocation, File newLocation) throws IOException {
-        if ( oldLocation.exists( )) {
-            BufferedInputStream  reader = new BufferedInputStream( new FileInputStream(oldLocation) );
-            BufferedOutputStream  writer = new BufferedOutputStream( new FileOutputStream(newLocation, false));
+        if (oldLocation.exists()) {
+            BufferedInputStream reader = new BufferedInputStream(new FileInputStream(oldLocation));
+            BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(newLocation, false));
             try {
-                byte[]  buff = new byte[8192];
+                byte[] buff = new byte[8192];
                 int numChars;
-                while ( (numChars = reader.read(  buff, 0, buff.length ) ) != -1) {
-                    writer.write( buff, 0, numChars );
+                while ((numChars = reader.read(buff, 0, buff.length)) != -1) {
+                    writer.write(buff, 0, numChars);
                 }
-            } catch( IOException ex ) {
+            } catch (IOException ex) {
                 throw new IOException("IOException when transferring " + oldLocation.getPath() + " to " + newLocation.getPath());
             } finally {
                 try {
-                    if ( reader != null ){                      
+                    if (reader != null) {
                         writer.close();
                         reader.close();
                     }
-                } catch( IOException ex ){
+                } catch (IOException ex) {
                 }
             }
         } else {
-            throw new IOException("Old location does not exist when transferring " + oldLocation.getPath() + " to " + newLocation.getPath() );
+            throw new IOException("Old location does not exist when transferring " + oldLocation.getPath() + " to " + newLocation.getPath());
         }
     }
 }

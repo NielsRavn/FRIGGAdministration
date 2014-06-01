@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BLL.Commands;
 
 import BE.Employee;
@@ -15,24 +14,26 @@ import java.sql.SQLException;
  *
  * @author Niels Kristian Ravn
  */
-public class EmployeeCreateCommand implements ICommand{
+public class EmployeeCreateCommand implements ICommand {
 
     Employee employee;
     Employee_Access eal;
-    
+
     /**
      * creates a new command to create an employee
+     *
      * @param employee the employee to create
-     * @throws IOException 
+     * @throws IOException
      */
-    public EmployeeCreateCommand(Employee employee) throws IOException{
+    public EmployeeCreateCommand(Employee employee) throws IOException {
         eal = new Employee_Access();
         this.employee = employee;
     }
-    
+
     /**
      * creates the employee in the database effectivly going forward.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     @Override
     public void execute() throws SQLException {
@@ -41,11 +42,12 @@ public class EmployeeCreateCommand implements ICommand{
 
     /**
      * deletes the new employee from the database effectivly going backwards
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     @Override
     public void revoke() throws SQLException {
         eal.deleteEmployee(employee);
     }
-    
+
 }
