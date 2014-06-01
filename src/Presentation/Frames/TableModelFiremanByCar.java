@@ -171,7 +171,6 @@ public class TableModelFiremanByCar extends AbstractTableModel {
                 t.setChange(true);
                 break;
         }
-
     }
 
     /**

@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -42,6 +43,7 @@ public class Overview extends javax.swing.JPanel {
     /**
      * Creates new form Overview
      */
+    
     public Overview() {
         initComponents();
         this.setVisible(true);
@@ -64,7 +66,8 @@ public class Overview extends javax.swing.JPanel {
         try {
             aal = new Alarm_AccessLink();
         } catch (IOException ex) {
-            Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
         page2.add(sul, BorderLayout.CENTER);
 
@@ -189,7 +192,7 @@ public class Overview extends javax.swing.JPanel {
 
                 alarms.addAll(aal.getAlarmsByPeriodAndAccepted(p, approved));
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Der kunne ikke skabes forbindelse til databasen");
             }
         }
         alarmTableModel.setAlarms(alarms);
@@ -208,7 +211,7 @@ public class Overview extends javax.swing.JPanel {
                     sul.SelectionChanged(alarmTableModel.getAlarmAt(selectedRow));
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(Overview.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,"Der er sket en fejl. intet er gemt /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
                 }
             }
         }

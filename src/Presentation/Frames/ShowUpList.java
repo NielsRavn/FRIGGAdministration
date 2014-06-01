@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Presentation.Frames;
 
 import BE.Alarm;
@@ -18,6 +13,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -42,7 +38,7 @@ public class ShowUpList extends javax.swing.JPanel {
             aal = new Alarm_AccessLink();
             tsal = new TimeSheet_AccessLink();
         } catch (IOException ex) {
-            Logger.getLogger(ShowUpList.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         initComponents();
         this.setVisible(true);
@@ -129,9 +125,12 @@ public class ShowUpList extends javax.swing.JPanel {
     private javax.swing.JTable tblShowUpOnCar;
     // End of variables declaration//GEN-END:variables
 
-    /*
+    /**
      * when the Alarm in Overview is changed the 
      * combobox is filled with the new date
+     * 
+     * @param alarm changes the content of the combobox 
+     * @throws SQLException 
      */
     void SelectionChanged(Alarm alarm) throws SQLException {
         clearTimeSheet();
@@ -147,10 +146,11 @@ public class ShowUpList extends javax.swing.JPanel {
             }
         }
     }
+    
     /*
      * Saves the rows which has changes
      */
-
+    
     private void saveChangedRows() {
         ArrayList<TimeSheet> changes = tableFiremanByCar.getTimeSheets();
         for (TimeSheet t : changes) {
@@ -158,7 +158,8 @@ public class ShowUpList extends javax.swing.JPanel {
                 try {
                     tsal.updateTimesheet(t);
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Der er sket en fejl, ingen ændringer er gemt. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
                 }
             }
         }
@@ -179,13 +180,13 @@ public class ShowUpList extends javax.swing.JPanel {
                 try {
                     employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, ((int) cbxCar.getSelectedItem()));
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
                 }
             } else if (cbxCar.getSelectedItem() != null) {
                 try {
                     employees = tsal.getTimeSheetByCarNrAndAlarmID(alarmID, 0);
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
                 }
             }
             tableFiremanByCar.setTimeSheets(employees);
@@ -198,6 +199,5 @@ public class ShowUpList extends javax.swing.JPanel {
     public void clearTimeSheet() {
         tableFiremanByCar.clearTimeSheet();
         cbxCar.removeAllItems();
-
     }
 }
