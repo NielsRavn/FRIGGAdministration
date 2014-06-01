@@ -100,7 +100,7 @@ Alarm_AccessLink aal;
                 break;
         }
     }
-    
+
         private void saveChangedRows() {
         ArrayList<Alarm> changes = alarmList;
         for (Alarm a : changes) {
