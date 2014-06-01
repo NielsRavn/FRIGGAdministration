@@ -25,6 +25,14 @@ public class Message_Access extends DatabaseConnection{
         super();
     }
 
+    /**
+     * gets ethier archived or unarchived messages, the archived status
+     * is the oposit of the shown value that is saved in the database.
+     * @param archived whether to get archived or un archived messages, 
+     * false to get messages that are shown in the check out program.
+     * @return an arraylist of messages.
+     * @throws SQLException 
+     */
     public ArrayList<Message> getMessagesByArchivedStatus(boolean archived) throws SQLException {
         Connection con = null;
         ArrayList<Message> messages = new ArrayList<Message>();
@@ -53,6 +61,10 @@ public class Message_Access extends DatabaseConnection{
         return messages;
     }
 
+    /**
+     * creates a new message to then be loaded from the database.
+     * @throws SQLException 
+     */
     public void createNewMessage() throws SQLException {
         Connection con = null;
         
@@ -73,6 +85,11 @@ public class Message_Access extends DatabaseConnection{
         }
     }
 
+    /**
+     * updates all fields of a message
+     * @param m the message to update.
+     * @throws SQLException 
+     */
     public void updateMessage(Message m) throws SQLException {
         Connection con = null;
         

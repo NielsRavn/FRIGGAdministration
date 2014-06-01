@@ -23,9 +23,14 @@ public class Employee_Access extends DatabaseConnection{
     public Employee_Access() throws IOException{
         super();
     }
- /*
-    * returns firemen by String query
-    */
+ 
+    /**
+     * gets an employee from a search query, firname lastname and employee id will be compared
+     * to see if any of them contains some of the string.
+     * @param query the query to search for
+     * @return an array of employees matching the search query
+     * @throws SQLException 
+     */
     public ArrayList<Employee> getEmployeesBySearchQuery(String query) throws SQLException {
         ArrayList<Employee> employees = new ArrayList<>();
         Connection con = null;
@@ -57,9 +62,11 @@ public class Employee_Access extends DatabaseConnection{
         return employees;
     }
 
-    /*
-    * updates Employee
-    */
+    /**
+     * updates all data of an employee
+     * @param e the employee to update, the data on this should be updated before sending it here.
+     * @throws SQLException 
+     */
     public void updateEmployee(Employee e) throws SQLException {
         Connection con = null;
         
@@ -85,9 +92,11 @@ public class Employee_Access extends DatabaseConnection{
         }
     }
 
-    /*
-    * Creates a new Employee
-    */
+    /**
+     * creates a new employee with all data given.
+     * @param e the employee to create in the dtabase.
+     * @throws SQLException 
+     */
     public void createNewEmployee(Employee e) throws SQLException {
         Connection con = null;
         
@@ -113,9 +122,11 @@ public class Employee_Access extends DatabaseConnection{
         }
     }
 
-    /*
-    * Deletes Employees
-    */
+    /**
+     * deletes an employee from the database
+     * @param e the employee to delete, the id of this is used.
+     * @throws SQLException 
+     */
     public void deleteEmployee(Employee e) throws SQLException {
         Connection con = null;
         
@@ -136,9 +147,12 @@ public class Employee_Access extends DatabaseConnection{
         }
     }
 
-    /*
-    * checks if the employee ID exists
-    */
+    /**
+     * checks if the employee id exists in the database
+     * @param id the id to check for
+     * @return true if the employee id is NOT in the database, false if it IS in the database.
+     * @throws SQLException 
+     */
     public boolean checkNewEmployeeId(int id) throws SQLException {
         Connection con = null;
         

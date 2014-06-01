@@ -24,9 +24,13 @@ public class TimeSheet_Access extends DatabaseConnection {
 
     }
 
-    /*
-    * with the information about int alarmID and int carNr the relevate timeSheets are returned
-    */
+    /**
+     * gets all timesheets with the given alarm id and car nr.
+     * @param alarmID the alarm id to search for
+     * @param carNr the car number to search fro.
+     * @return an arraylist of timesheets which meets the given requirements.
+     * @throws SQLException 
+     */
     public ArrayList<TimeSheet> getTimeSheetByCarNrAndAlarmID(int alarmID, int carNr) throws SQLException {
         ArrayList<TimeSheet> result = new ArrayList<>();
         Connection con = null;
@@ -92,9 +96,13 @@ public class TimeSheet_Access extends DatabaseConnection {
         return result;
     }
 
-    /*
-    * updates the chosen approvalSheet
-    */
+    /**
+     * creates a new approval sheet for the timesheets with data from the 
+     * timesheet and adds it as the approval sheet for the timesheet
+     * @param t the timesheets which should have a new approval sheet made, 
+     * with approved hours, or approved by comander updated.
+     * @throws SQLException 
+     */
     public void updateApprovalSheet(TimeSheet t) throws SQLException {
         Connection con = null;
         ResultSet rs = null;

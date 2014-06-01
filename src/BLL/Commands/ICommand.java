@@ -14,8 +14,16 @@ import java.sql.SQLException;
  */
 public interface ICommand {
     
+    /**
+     * the command to be executed in the command when going forward
+     * @throws SQLException 
+     */
     public void execute() throws SQLException;
     
+    /**
+     * the command to be executed in the command stack when going backwards.
+     * @throws SQLException 
+     */
     public void revoke() throws SQLException;
     
 }
