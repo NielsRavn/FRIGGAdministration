@@ -18,6 +18,7 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
 import javax.swing.table.TableRowSorter;
@@ -44,6 +45,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
         try {
             eal = new Employee_AccessLink();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         tblEmployee.getTableHeader().setReorderingAllowed(false);
         eatm = new EmployeeAdministrationTableModel(this, commandStack);
@@ -187,6 +189,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
         try {
             employees = eal.getEmployeesBySearchQuery(query);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         eatm.setEmployees(employees);
         setButtonsEnabled();
@@ -204,6 +207,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
             try {
                 commandStack.addCommandToStack(new EmployeeCreateCommand(e.getCopyOfEmployee()));
             } catch (SQLException | IOException ex) {
+                JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
             }
             eatm.getEmployees().add(e);
             eatm.fireTableDataChanged();
@@ -219,7 +223,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
             try {
                 commandStack.goBack();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
             }
             search();
         }
@@ -243,7 +247,7 @@ public class EmployeeAdministrationPanel extends javax.swing.JPanel {
             try {
                 commandStack.goForward();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
             }
             search();
         }

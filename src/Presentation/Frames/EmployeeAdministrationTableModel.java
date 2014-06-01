@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -122,10 +123,8 @@ public class EmployeeAdministrationTableModel extends AbstractTableModel {
         try {
             commandStack.addCommandToStack(new EmployeeUpdateCommand(e, old));
             fireTableDataChanged();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (IOException | SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         parent.setButtonsEnabled();
     }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -119,6 +120,7 @@ public class CarTableModel extends AbstractTableModel {
             fireTableDataChanged();
             parent.setButtonsEnabled();
         } catch (IOException | SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
     }
 

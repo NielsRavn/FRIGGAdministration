@@ -35,6 +35,8 @@ public class NewCarDialog extends javax.swing.JDialog {
             cal = new Car_AccessLink();
             car = null;
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
         setLocationRelativeTo(parent);
         setVisible(true);
@@ -129,7 +131,8 @@ public class NewCarDialog extends javax.swing.JDialog {
             }
         } catch (SQLException ex) {
             car = null;
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
     }
 
@@ -160,5 +163,4 @@ public class NewCarDialog extends javax.swing.JDialog {
             }
         }
     }
-
 }

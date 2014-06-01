@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 
@@ -31,6 +32,8 @@ public class MessagePanel extends javax.swing.JPanel {
         try {
             mal = new Message_AccessLink();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
         initComponents();
         mtm = new MessageTableModel(this);
@@ -125,6 +128,8 @@ public class MessagePanel extends javax.swing.JPanel {
         try {
             messages = mal.getMessagesByArchivedStatus(archived);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
         mtm.setMessages(messages);
     }
@@ -137,6 +142,7 @@ public class MessagePanel extends javax.swing.JPanel {
         try {
             mal.createNewMessage();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         search();
     }

@@ -35,6 +35,8 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
             eal = new Employee_AccessLink();
             employee = null;
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
         setLocationRelativeTo(parent);
         setVisible(true);
@@ -129,7 +131,8 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
             }
         } catch (SQLException ex) {
             employee = null;
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
+
         }
     }
 

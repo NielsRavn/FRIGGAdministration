@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -32,6 +33,7 @@ public class MessageTableModel extends AbstractTableModel {
         try {
             mal = new Message_AccessLink();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         this.messages = messages;
         fireTableDataChanged();
@@ -107,7 +109,7 @@ public class MessageTableModel extends AbstractTableModel {
         try {
             mal.updateMessage(m);
         } catch (SQLException ex) {
-            Logger.getLogger(MessageTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         parent.search();
     }

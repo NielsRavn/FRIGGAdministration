@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
@@ -53,6 +54,7 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         try {
             cal = new Car_AccessLink();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         tblCar.getTableHeader().setReorderingAllowed(false);
         ctm = new CarTableModel(this, commandStack);
@@ -191,6 +193,7 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
         try {
             employees = cal.getCarsBySearchQuery(query);
         } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
         }
         ctm.setCars(employees);
         setButtonsEnabled();
@@ -208,6 +211,7 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
             try {
                 commandStack.addCommandToStack(new CarCreateCommand(c.getCopyOfCar()));
             } catch (SQLException | IOException ex) {
+                JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
             }
             ctm.getCars().add(c);
             ctm.fireTableDataChanged();
@@ -223,7 +227,7 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
             try {
                 commandStack.goBack();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
             }
             search();
         }
@@ -247,7 +251,7 @@ public class CarAdministrationPanel extends javax.swing.JPanel {
             try {
                 commandStack.goForward();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Der er sket en fejl. /r/n Forsætter fejlen kontakt da administartion med følgende fejl /r/n" + ex);
             }
             search();
         }
