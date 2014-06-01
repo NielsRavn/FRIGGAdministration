@@ -117,6 +117,9 @@ public class MessagePanel extends javax.swing.JPanel {
     private javax.swing.JTable tblMessages;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * searches for messages from the archived status set in the checkbox.
+     */
     public void search() {
         boolean archived = cbVisArkiverede.isSelected();
         ArrayList<Message> messages = new ArrayList<>();
@@ -127,6 +130,9 @@ public class MessagePanel extends javax.swing.JPanel {
         mtm.setMessages(messages);
     }
 
+    /**
+     * creates a new message in the database and searches again to get the new one into the table.
+     */
     private void createNewMessage() {
         try {
             mal.createNewMessage();
