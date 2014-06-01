@@ -130,20 +130,25 @@ public class Alarm {
         this.accepted = accepted;
     }
 
-    public String getName() {
-        return "" + ID;
-    }
-
+    /**
+     * @return returns wheter or nt this alarm is an exercise
+     */
     public boolean isExercise() {
         return exercise;
     }
 
+    /**
+     * @param change sets the changed value, when commiting to the dtabase this is used to see if anything was changed.
+     */
     public void setChange(boolean change) {
         this.change = change;
     }
 
+    /**
+     * @return true if there is changes that should be commited to the database false otherwise.
+     */
     public boolean isChange() {
-return change;
+        return change;
     }
 
 }

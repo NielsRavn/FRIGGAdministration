@@ -44,35 +44,58 @@ public class Car {
         this.seats = 0;
     }
 
+    /**
+     * @return the carnr of this car
+     */
     public int getCarNr() {
         return carNr;
     }
 
+    /**
+     * @param carNr the new carnr of this car.
+     */
     public void setCarNr(int carNr) {
         this.carNr = carNr;
     }
 
-
+    /**
+     * @return the name/type of vihecle
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name sets the name/type of vihecle
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return the number of seats on this car
+     */
     public int getSeats() {
         return seats;
     }
 
+    /**
+     * @param seats sets the number of seats on this car.
+     */
     public void setSeats(int seats) {
         this.seats = seats;
     }
 
+    /**
+     * @return the Myimage object of this car, which contains both image and image path.
+     */
     public MyImage getImage() {
         return image;
     }
 
+    /**
+     * @param image sets the myimage of this car.
+     */
     public void setImage(MyImage image) {
         this.image = image;
     }
