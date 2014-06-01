@@ -113,9 +113,10 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
 
-    /*
-    *creats new Employee ID
-    */
+    /**
+     * checks if the new employee id exists in the database, 
+     * if not it will set the employee of this to a new employee with the inputted id and dispose.
+     */
     public void createNewEmployee(){
         int id = Integer.parseInt(tfId.getText());
         employee = new Employee(id);
@@ -132,10 +133,16 @@ public class NewEmployeeDialog extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * @return the employee set in this object, if null no new employee should be created.
+     */
     public Employee getEmployee() {
         return employee;
     }
     
+    /**
+     * keylistener to listen for enter key, and consume inputs that are not numbers.
+     */
     private class myKeyListener extends KeyAdapter {
 
         @Override

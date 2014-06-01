@@ -33,6 +33,7 @@ import javax.swing.border.Border;
 import javax.swing.event.*;
 
 /**
+ * this class was taken from the date choser to change like one line...
  * Bean "Combo date editor". <br> 
  * Êîìïîíåíò: "Ðàñêðûâàþèéñÿ ðåäàêòîð äàòû"
  * @author Androsov Vadim
@@ -103,6 +104,7 @@ public class MyDateChooserCombo extends DateChooserVisual {
         menu.add(chooser);
         menu.addPopupMenuListener(new PopupMenuListener() {
             public void popupMenuCanceled(PopupMenuEvent e) {
+                //there was a field here that was removed thats basically it.
                 dateToField();
                 commit();
             }

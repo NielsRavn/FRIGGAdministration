@@ -113,6 +113,10 @@ public class NewCarDialog extends javax.swing.JDialog {
     private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * checks if the new car number exists in the database, 
+     * if not it will set the car of this to a ne car with the inputted number and dispose.
+     */
     public void createNewCar(){
         int carNr = Integer.parseInt(tfId.getText());
         car = new Car(carNr);
@@ -129,10 +133,16 @@ public class NewCarDialog extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * @return the car set in this object, if null no new car should be created.
+     */
     public Car getCar() {
         return car;
     }
     
+    /**
+     * keylistener to listen for enter key, and consume inputs that are not numbers.
+     */
     private class myKeyListener extends KeyAdapter {
 
         @Override
